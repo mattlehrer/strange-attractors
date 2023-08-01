@@ -35,7 +35,7 @@
 </script>
 
 <T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={20}>
-	<OrbitControls autoRotate enableZoom={true} enableDamping autoRotateSpeed={0.5} target.y={0} />
+	<OrbitControls autoRotate enableZoom={true} enableDamping autoRotateSpeed={0} target.y={0} />
 </T.PerspectiveCamera>
 
 <T.DirectionalLight intensity={0.8} position.x={5} position.y={10} />
