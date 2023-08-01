@@ -6,12 +6,13 @@
 	const geometry = new BufferGeometry();
 
 	const material = new PointsMaterial({
-		transparent: true
+		// transparent: true,
+		sizeAttenuation: false
 	});
 
 	let color = '#ffffff';
 	let opacity = 1;
-	let size = 1;
+	let size = 3;
 
 	let x = 0.01;
 	let y = 0;
@@ -34,8 +35,15 @@
 	});
 </script>
 
-<T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={20}>
-	<OrbitControls autoRotate enableZoom={true} enableDamping autoRotateSpeed={0} target.y={0} />
+<T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={25}>
+	<OrbitControls
+		autoRotate
+		enableZoom={true}
+		enableDamping
+		autoRotateSpeed={0}
+		target.y={0}
+		target.z={10}
+	/>
 </T.PerspectiveCamera>
 
 <T.DirectionalLight intensity={0.8} position.x={5} position.y={10} />
@@ -47,7 +55,8 @@
 	sectionColor="#ffffff"
 	sectionThickness={0}
 	fadeDistance={500}
-	cellSize={1}
+	cellSize={10}
+	gridSize={100}
 />
 
 <T.Points>
