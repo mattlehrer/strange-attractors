@@ -12,6 +12,7 @@
 	}
 
 	div {
+		position: relative;
 		width: 100vw;
 		height: 100vh;
 		background: rgb(13, 19, 32);
