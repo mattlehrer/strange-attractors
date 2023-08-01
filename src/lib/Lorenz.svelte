@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { T, useFrame } from '@threlte/core';
-	import { BufferGeometry, Float32BufferAttribute, PointsMaterial, Vector3 } from 'three';
+	import { BufferGeometry, Float32BufferAttribute, PointsMaterial } from 'three';
 	import { Grid, OrbitControls } from '@threlte/extras';
 
 	const geometry = new BufferGeometry();
@@ -34,8 +34,8 @@
 	});
 </script>
 
-<T.PerspectiveCamera makeDefault position={[-200, 200, 200]} fov={15}>
-	<OrbitControls autoRotate enableZoom={true} enableDamping autoRotateSpeed={0.5} target.y={1.5} />
+<T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={20}>
+	<OrbitControls autoRotate enableZoom={true} enableDamping autoRotateSpeed={0.5} target.y={0} />
 </T.PerspectiveCamera>
 
 <T.DirectionalLight intensity={0.8} position.x={5} position.y={10} />
@@ -46,8 +46,8 @@
 	cellColor="#ffffff"
 	sectionColor="#ffffff"
 	sectionThickness={0}
-	fadeDistance={25}
-	cellSize={10}
+	fadeDistance={500}
+	cellSize={1}
 />
 
 <T.Points>
