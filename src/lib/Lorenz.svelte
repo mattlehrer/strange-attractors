@@ -10,7 +10,7 @@
 		sizeAttenuation: false
 	});
 
-	let color = '#ffffff';
+	let color = [255, 255, 255] as [number, number, number];
 	let opacity = 1;
 	let size = 3;
 
@@ -22,8 +22,9 @@
 	let b = 28;
 	let c = 8.0 / 3.0;
 
+	const dt = 0.01;
+
 	useFrame(() => {
-		let dt = 0.01;
 		let dx = a * (y - x) * dt;
 		let dy = (x * (b - z) - y) * dt;
 		let dz = (x * y - c * z) * dt;
@@ -42,14 +43,14 @@
 		enableDamping
 		autoRotateSpeed={0}
 		target.y={0}
-		target.z={10}
+		target.z={15}
 	/>
 </T.PerspectiveCamera>
 
 <T.DirectionalLight intensity={0.8} position.x={5} position.y={10} />
 <T.AmbientLight intensity={0.2} />
 
-<Grid
+<!-- <Grid
 	position.y={-0.001}
 	cellColor="#ffffff"
 	sectionColor="#ffffff"
@@ -57,7 +58,7 @@
 	fadeDistance={500}
 	cellSize={10}
 	gridSize={100}
-/>
+/> -->
 
 <T.Points>
 	<T is={geometry} />
