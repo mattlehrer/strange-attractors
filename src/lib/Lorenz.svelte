@@ -1,10 +1,41 @@
 <script lang="ts">
-	import { T } from '@threlte/core';
-	import { ContactShadows, Float, Grid, OrbitControls } from '@threlte/extras';
+	import { T, useFrame } from '@threlte/core';
+	import { BufferGeometry, Float32BufferAttribute, PointsMaterial, Vector3 } from 'three';
+	import { Grid, OrbitControls } from '@threlte/extras';
+
+	const geometry = new BufferGeometry();
+
+	const material = new PointsMaterial({
+		transparent: true
+	});
+
+	let color = '#ffffff';
+	let opacity = 1;
+	let size = 1;
+
+	let x = 0.01;
+	let y = 0;
+	let z = 0;
+
+	let a = 10;
+	let b = 28;
+	let c = 8.0 / 3.0;
+
+	useFrame(() => {
+		let dt = 0.01;
+		let dx = a * (y - x) * dt;
+		let dy = (x * (b - z) - y) * dt;
+		let dz = (x * y - c * z) * dt;
+		x = x + dx;
+		y = y + dy;
+		z = z + dz;
+		// console.log({ x, y, z });
+		geometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));
+	});
 </script>
 
-<T.PerspectiveCamera makeDefault position={[-10, 10, 10]} fov={15}>
-	<OrbitControls autoRotate enableZoom={false} enableDamping autoRotateSpeed={0.5} target.y={1.5} />
+<T.PerspectiveCamera makeDefault position={[-200, 200, 200]} fov={15}>
+	<OrbitControls autoRotate enableZoom={true} enableDamping autoRotateSpeed={0.5} target.y={1.5} />
 </T.PerspectiveCamera>
 
 <T.DirectionalLight intensity={0.8} position.x={5} position.y={10} />
@@ -16,28 +47,10 @@
 	sectionColor="#ffffff"
 	sectionThickness={0}
 	fadeDistance={25}
-	cellSize={2}
+	cellSize={10}
 />
 
-<ContactShadows scale={10} blur={2} far={2.5} opacity={0.5} />
-
-<Float floatIntensity={1} floatingRange={[0, 1]}>
-	<T.Mesh position.y={1.2} position.z={-0.75}>
-		<T.BoxGeometry />
-		<T.MeshStandardMaterial color="#0059BA" />
-	</T.Mesh>
-</Float>
-
-<Float floatIntensity={1} floatingRange={[0, 1]}>
-	<T.Mesh position={[1.2, 1.5, 0.75]} rotation.x={5} rotation.y={71}>
-		<T.TorusKnotGeometry args={[0.5, 0.15, 100, 12, 2, 3]} />
-		<T.MeshStandardMaterial color="#F85122" />
-	</T.Mesh>
-</Float>
-
-<Float floatIntensity={1} floatingRange={[0, 1]}>
-	<T.Mesh position={[-1.4, 1.5, 0.75]} rotation={[-5, 128, 10]}>
-		<T.IcosahedronGeometry />
-		<T.MeshStandardMaterial color="#F8EBCE" />
-	</T.Mesh>
-</Float>
+<T.Points>
+	<T is={geometry} />
+	<T is={material} {size} {color} {opacity} />
+</T.Points>
