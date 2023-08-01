@@ -3,6 +3,7 @@
 	import { Grid, OrbitControls } from '@threlte/extras';
 	import Lorenz from './Lorenz.svelte';
 	import { Color } from 'three';
+	import { lorenzPositions } from './stores';
 </script>
 
 <T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={25}>
@@ -19,8 +20,20 @@
 <!-- <T.DirectionalLight intensity={0.8} position.x={5} position.y={10} />
 <T.AmbientLight intensity={0.2} /> -->
 
-<Lorenz dotColor={new Color(0xff2222)} lineColor={new Color(0x772222)} x={0.01} y={0} z={0} />
-<Lorenz dotColor={new Color(0x2222ff)} lineColor={new Color(0x222277)} x={0} y={0.01} z={0} />
+<Lorenz
+	dotColor={new Color(0xff2222)}
+	lineColor={new Color(0xaa2222)}
+	bind:x={$lorenzPositions[0][0]}
+	bind:y={$lorenzPositions[0][1]}
+	bind:z={$lorenzPositions[0][2]}
+/>
+<Lorenz
+	dotColor={new Color(0x2288ff)}
+	lineColor={new Color(0x2277aa)}
+	bind:x={$lorenzPositions[1][0]}
+	bind:y={$lorenzPositions[1][1]}
+	bind:z={$lorenzPositions[1][2]}
+/>
 
 <!-- <Grid
 	position.y={-0.001}
