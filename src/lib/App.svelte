@@ -16,18 +16,14 @@
 			<th>y</th>
 			<th>z</th>
 		</tr>
-		<tr>
-			<th>Red</th>
-			<td>{$lorenzPositions[0][0].toFixed(2)}</td>
-			<td>{$lorenzPositions[0][1].toFixed(2)}</td>
-			<td>{$lorenzPositions[0][2].toFixed(2)}</td>
-		</tr>
-		<tr>
-			<th>Blue</th>
-			<td>{$lorenzPositions[1][0].toFixed(2)}</td>
-			<td>{$lorenzPositions[1][1].toFixed(2)}</td>
-			<td>{$lorenzPositions[1][2].toFixed(2)}</td>
-		</tr>
+		{#each $lorenzPositions as position}
+			<tr>
+				<th>{position.name}</th>
+				<td>{position.x.toFixed(2)}</td>
+				<td>{position.y.toFixed(2)}</td>
+				<td>{position.z.toFixed(2)}</td>
+			</tr>
+		{/each}
 	</table>
 </div>
 

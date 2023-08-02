@@ -2,7 +2,6 @@
 	import { T } from '@threlte/core';
 	import { Grid, OrbitControls } from '@threlte/extras';
 	import Lorenz from './Lorenz.svelte';
-	import { Color } from 'three';
 	import { lorenzPositions } from './stores';
 </script>
 
@@ -19,21 +18,15 @@
 
 <!-- <T.DirectionalLight intensity={0.8} position.x={5} position.y={10} />
 <T.AmbientLight intensity={0.2} /> -->
-
-<Lorenz
-	dotColor={new Color(0xff2222)}
-	lineColor={new Color(0xaa2222)}
-	bind:x={$lorenzPositions[0][0]}
-	bind:y={$lorenzPositions[0][1]}
-	bind:z={$lorenzPositions[0][2]}
-/>
-<Lorenz
-	dotColor={new Color(0x2288ff)}
-	lineColor={new Color(0x2277aa)}
-	bind:x={$lorenzPositions[1][0]}
-	bind:y={$lorenzPositions[1][1]}
-	bind:z={$lorenzPositions[1][2]}
-/>
+{#each $lorenzPositions as dot}
+	<Lorenz
+		dotColor={dot.dotColor}
+		lineColor={dot.lineColor}
+		bind:x={dot.x}
+		bind:y={dot.y}
+		bind:z={dot.z}
+	/>
+{/each}
 
 <!-- <Grid
 	position.y={-0.001}

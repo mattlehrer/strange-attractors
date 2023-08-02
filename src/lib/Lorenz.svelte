@@ -10,8 +10,8 @@
 	} from 'three';
 
 	export let MAX_POINTS = 25000;
-	export let dotColor = new Color(0xff2211);
-	export let lineColor = new Color(0x993333);
+	export let dotColor = 0xff2211;
+	export let lineColor = 0x993333;
 
 	export let x = 0.01;
 	export let y = 0;
@@ -25,7 +25,7 @@
 	});
 	const lineMaterial = new LineBasicMaterial();
 
-	let opacity = 1;
+	// let opacity = 1;
 	let size = 3;
 
 	let a = 10;
@@ -59,10 +59,10 @@
 
 <T.Points>
 	<T is={dotGeometry} />
-	<T is={dotMaterial} {size} color={dotColor} />
+	<T is={dotMaterial} {size} color={new Color(dotColor)} />
 </T.Points>
 
 <T.Line>
 	<T is={lineGeometry} />
-	<T is={lineMaterial} color={lineColor} />
+	<T is={lineMaterial} color={new Color(lineColor)} />
 </T.Line>
