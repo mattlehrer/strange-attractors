@@ -8,14 +8,33 @@
 		PointsMaterial,
 		Color
 	} from 'three';
+	import * as knobby from 'svelte-knobby';
 
 	export let MAX_POINTS = 25000;
 	export let dotColor = 0xff2211;
 	export let lineColor = 0x993333;
+	export let name;
 
 	export let x = 0.01;
 	export let y = 0;
 	export let z = 0;
+
+	const controls = knobby.panel({
+		$id: `${name}`,
+		$label: `${name}`,
+		name,
+		dotColor,
+		lineColor,
+		x,
+		y,
+		z
+	});
+	$controls.name = $controls.name;
+	try {
+		localStorage.setItem(`svelte-knobby:open:${name}`, 'false');
+	} catch {
+		// do nothing
+	}
 
 	const dotGeometry = new BufferGeometry();
 	const lineGeometry = new BufferGeometry();
@@ -26,7 +45,7 @@
 	const lineMaterial = new LineBasicMaterial();
 
 	// let opacity = 1;
-	let size = 3;
+	let size = 5;
 
 	let a = 10;
 	let b = 28;

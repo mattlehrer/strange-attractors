@@ -50,6 +50,9 @@ devDependencies:
   svelte-check:
     specifier: ^3.4.3
     version: 3.4.6(postcss@8.4.27)(svelte@4.1.1)
+  svelte-knobby:
+    specifier: ^0.3.4
+    version: 0.3.4(svelte@4.1.1)
   three:
     specifier: ^0.155.0
     version: 0.155.0
@@ -810,6 +813,10 @@ packages:
 
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+    dev: true
+
+  /bezier-easing@2.1.0:
+    resolution: {integrity: sha512-gbIqZ/eslnUFC1tjEvtz0sgx+xTK20wDnYMIA27VA04R7w6xxXQPZDbibjA9DTWZRA2CXtwHykkVzlCaAJAZig==}
     dev: true
 
   /bidi-js@1.0.3:
@@ -2023,6 +2030,17 @@ packages:
       svelte: 4.1.1
     dev: true
 
+  /svelte-knobby@0.3.4(svelte@4.1.1):
+    resolution: {integrity: sha512-JK8BkZfktZs4tPtgpvagCu80kwL0C4LMtYCBWH1Ki5ZCFDAY2K84qLJdWr6i23HgvJYqzYYTBQ1LsM82kh9mxA==}
+    peerDependencies:
+      svelte: ^3.34.0
+    dependencies:
+      bezier-easing: 2.1.0
+      svelte: 4.1.1
+      svelte-undo: 1.0.2(svelte@4.1.1)
+      yootils: 0.3.1
+    dev: true
+
   /svelte-preprocess@5.0.4(postcss@8.4.27)(svelte@4.1.1)(typescript@5.1.6):
     resolution: {integrity: sha512-ABia2QegosxOGsVlsSBJvoWeXy1wUKSfF7SWJdTjLAbx/Y3SrVevvvbFNQqrSJw89+lNSsM58SipmZJ5SRi5iw==}
     engines: {node: '>= 14.10.0'}
@@ -2069,6 +2087,14 @@ packages:
       strip-indent: 3.0.0
       svelte: 4.1.1
       typescript: 5.1.6
+    dev: true
+
+  /svelte-undo@1.0.2(svelte@4.1.1):
+    resolution: {integrity: sha512-k8W2RYKJM/kpA0bfSk0bjX/vhC705/2V1T/ew7U8c8wMkVS2f0wajCGokLH/zfZC5/N84bwPdAQvGte6LWBr7Q==}
+    peerDependencies:
+      svelte: ^3
+    dependencies:
+      svelte: 4.1.1
     dev: true
 
   /svelte@4.1.1:
@@ -2390,4 +2416,8 @@ packages:
   /yocto-queue@1.0.0:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
+    dev: true
+
+  /yootils@0.3.1:
+    resolution: {integrity: sha512-A7AMeJfGefk317I/3tBoUYRcDcNavKEkpiPN/nQsBz/viI2GvT7BtrqdPD6rGqBFN8Ax7v4obf+Cl32JF9DDVw==}
     dev: true

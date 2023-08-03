@@ -3,6 +3,23 @@
 	import { Grid, OrbitControls } from '@threlte/extras';
 	import Lorenz from './Lorenz.svelte';
 	import { lorenzPositions } from './stores';
+	import * as knobby from 'svelte-knobby';
+
+	const controls = knobby.panel({
+		$id: 'main',
+		'Add Dot': () => {
+			const newDot = {
+				name: `Dot ${$lorenzPositions.length + 1}`,
+				dotColor: 0xff2211,
+				lineColor: 0x993333,
+				x: Math.random(),
+				y: Math.random(),
+				z: Math.random()
+			};
+			$lorenzPositions = [...$lorenzPositions, newDot];
+		}
+	});
+	$controls.message = $controls.message;
 </script>
 
 <T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={25}>
@@ -22,6 +39,7 @@
 	<Lorenz
 		dotColor={dot.dotColor}
 		lineColor={dot.lineColor}
+		bind:name={dot.name}
 		bind:x={dot.x}
 		bind:y={dot.y}
 		bind:z={dot.z}
