@@ -21,14 +21,14 @@
 	$controls.message = $controls.message;
 </script>
 
-<T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={25}>
+<T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={35}>
 	<OrbitControls
 		autoRotate
 		enableZoom={true}
 		enableDamping
 		autoRotateSpeed={0.5}
 		target.y={0}
-		target.z={15}
+		target.z={25}
 	/>
 </T.PerspectiveCamera>
 
