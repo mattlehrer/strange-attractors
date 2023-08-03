@@ -9,25 +9,35 @@
 		Color
 	} from 'three';
 	import * as knobby from 'svelte-knobby';
+	import { lorenzPositions } from './stores';
 
 	export let MAX_POINTS = 25000;
-	export let dotColor = 0xff2211;
-	export let lineColor = 0x993333;
-	export let name;
+	export let dotColor = '#ff2211';
+	export let name: string;
 
-	export let x = 0.01;
-	export let y = 0;
-	export let z = 0;
+	export let init = [0.01, 0, 0];
+	let [x, y, z] = init;
 
 	const controls = knobby.panel({
 		$id: `${name}`,
 		$label: `${name}`,
-		name,
-		dotColor,
-		lineColor,
-		x,
-		y,
-		z
+		Color: dotColor,
+		'Starting Position': {
+			x: init[0],
+			y: init[1],
+			z: init[2]
+		},
+		Reset: (value) => {
+			x = value['Starting Position'].x;
+			y = value['Starting Position'].y;
+			z = value['Starting Position'].z;
+			i = 0;
+			// return value;
+		},
+		Remove: () => {
+			console.log({ pos: $lorenzPositions });
+			$lorenzPositions = $lorenzPositions.filter((dot) => dot.name !== name);
+		}
 	});
 	$controls.name = $controls.name;
 	try {
@@ -54,8 +64,7 @@
 	const dt = 0.01;
 	let i = 0;
 
-	const positions1 = new Float32Array(MAX_POINTS * 3);
-	lineGeometry.setAttribute('position', new BufferAttribute(positions1, 3));
+	lineGeometry.setAttribute('position', new BufferAttribute(new Float32Array(MAX_POINTS * 3), 3));
 
 	useFrame(() => {
 		let dx = a * (y - x) * dt;
@@ -78,10 +87,10 @@
 
 <T.Points>
 	<T is={dotGeometry} />
-	<T is={dotMaterial} {size} color={new Color(dotColor)} />
+	<T is={dotMaterial} {size} color={new Color($controls.Color)} />
 </T.Points>
 
 <T.Line>
 	<T is={lineGeometry} />
-	<T is={lineMaterial} color={new Color(lineColor)} />
+	<T is={lineMaterial} color={new Color($controls.Color)} />
 </T.Line>

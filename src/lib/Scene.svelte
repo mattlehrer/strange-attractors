@@ -10,11 +10,10 @@
 		'Add Dot': () => {
 			const newDot = {
 				name: `Dot ${$lorenzPositions.length + 1}`,
-				dotColor: 0xff2211,
-				lineColor: 0x993333,
-				x: Math.random(),
-				y: Math.random(),
-				z: Math.random()
+				dotColor: '#ff2211',
+				x: Number(Math.random().toFixed(10)),
+				y: Number(Math.random().toFixed(10)),
+				z: Number(Math.random().toFixed(10))
 			};
 			$lorenzPositions = [...$lorenzPositions, newDot];
 		}
@@ -35,15 +34,8 @@
 
 <!-- <T.DirectionalLight intensity={0.8} position.x={5} position.y={10} />
 <T.AmbientLight intensity={0.2} /> -->
-{#each $lorenzPositions as dot}
-	<Lorenz
-		dotColor={dot.dotColor}
-		lineColor={dot.lineColor}
-		bind:name={dot.name}
-		bind:x={dot.x}
-		bind:y={dot.y}
-		bind:z={dot.z}
-	/>
+{#each $lorenzPositions as dot (dot.name)}
+	<Lorenz dotColor={dot.dotColor} name={dot.name} init={[dot.x, dot.y, dot.z]} />
 {/each}
 
 <!-- <Grid
