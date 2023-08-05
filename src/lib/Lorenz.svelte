@@ -11,7 +11,7 @@
 	import * as knobby from 'svelte-knobby';
 	import { lorenzPositions } from './stores';
 
-	export let MAX_POINTS = 25000;
+	export let MAX_POINTS = 10_000;
 	export let dotColor = '#ff2211';
 	export let name: string;
 
@@ -35,7 +35,6 @@
 			// return value;
 		},
 		Remove: () => {
-			console.log({ pos: $lorenzPositions });
 			$lorenzPositions = $lorenzPositions.filter((dot) => dot.name !== name);
 		}
 	});
@@ -67,9 +66,9 @@
 	lineGeometry.setAttribute('position', new BufferAttribute(new Float32Array(MAX_POINTS * 3), 3));
 
 	useFrame(() => {
-		let dx = a * (y - x) * dt;
-		let dy = (x * (b - z) - y) * dt;
-		let dz = (x * y - c * z) * dt;
+		const dx = a * (y - x) * dt;
+		const dy = (x * (b - z) - y) * dt;
+		const dz = (x * y - c * z) * dt;
 		x = x + dx;
 		y = y + dy;
 		z = z + dz;
