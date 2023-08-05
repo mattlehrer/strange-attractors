@@ -7,6 +7,7 @@
 
 	const controls = knobby.panel({
 		$id: 'main',
+		autorotate: true,
 		'Add Dot': () => {
 			const newDot = {
 				name: `Dot ${$lorenzPositions.length + 1}`,
@@ -23,10 +24,10 @@
 
 <T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={35}>
 	<OrbitControls
-		autoRotate
+		autoRotate={$controls.autorotate}
 		enableZoom={true}
 		enableDamping
-		autoRotateSpeed={0.5}
+		autoRotateSpeed={0.25}
 		target.y={0}
 		target.z={25}
 	/>
