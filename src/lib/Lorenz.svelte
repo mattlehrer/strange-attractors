@@ -1,22 +1,19 @@
 <script lang="ts">
 	import { T, useFrame } from '@threlte/core';
-	import {
-		BufferAttribute,
-		BufferGeometry,
-		Float32BufferAttribute,
-		LineBasicMaterial,
-		PointsMaterial,
-		Color
-	} from 'three';
+	import { BufferGeometry, Float32BufferAttribute, PointsMaterial, Color } from 'three';
 	import * as knobby from 'svelte-knobby';
 	import { lorenzPositions } from './stores';
 
-	export let MAX_POINTS = 10_000;
+	export let MAX_POINTS = 100;
 	export let dotColor = '#ff2211';
 	export let name: string;
 
 	export let init = [0.01, 0, 0];
 	let [x, y, z] = init;
+	let size = 5;
+
+	let trailingDots: Array<{ color: Color; position: [number, number, number] }> = [];
+	// let positions: Array<number> = [];
 
 	const controls = knobby.panel({
 		$id: `${name}`,
@@ -46,15 +43,22 @@
 	}
 
 	const dotGeometry = new BufferGeometry();
-	const lineGeometry = new BufferGeometry();
 
 	const dotMaterial = new PointsMaterial({
 		sizeAttenuation: false
 	});
-	const lineMaterial = new LineBasicMaterial();
 
-	// let opacity = 1;
-	let size = 5;
+	// const trailMaterial = new PointsMaterial({
+	// 	sizeAttenuation: false
+	// });
+
+	const colors: Color[] = [];
+	let red = 0.95;
+	for (let j = 0; j < MAX_POINTS; j++) {
+		colors.push(new Color(red, 0.01, 0.004));
+		red = red * (0.96 - 1 / MAX_POINTS);
+	}
+	console.log({ colors });
 
 	let a = 10;
 	let b = 28;
@@ -62,8 +66,6 @@
 
 	const dt = 0.01;
 	let i = 0;
-
-	lineGeometry.setAttribute('position', new BufferAttribute(new Float32Array(MAX_POINTS * 3), 3));
 
 	useFrame(() => {
 		const dx = a * (y - x) * dt;
@@ -73,23 +75,36 @@
 		y = y + dy;
 		z = z + dz;
 
-		const positions = lineGeometry.getAttribute('position').array;
-		positions[i++] = x;
-		positions[i++] = y;
-		positions[i++] = z;
-
 		dotGeometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));
-		lineGeometry.setAttribute('position', new BufferAttribute(positions, 3));
-		lineGeometry.setDrawRange(0, i / 3);
+
+		if (!(i % 5)) {
+			trailingDots = trailingDots.map((d, i) => ({
+				...d,
+				color: colors[trailingDots.length - i - 1]
+			}));
+			trailingDots = [
+				...trailingDots,
+				{ color: colors[MAX_POINTS - 1], position: [x, y, z] } as (typeof trailingDots)[0]
+			].slice(-MAX_POINTS);
+		}
+		i++;
 	});
 </script>
 
+{#each trailingDots as dot (dot.position)}
+	{@const geometry = new BufferGeometry().setAttribute(
+		'position',
+		new Float32BufferAttribute(dot.position, 3)
+	)}
+	{@const trailMaterial = new PointsMaterial({
+		sizeAttenuation: false
+	})}
+	<T.Points>
+		<T is={geometry} />
+		<T is={trailMaterial} size={2} color={dot.color} />
+	</T.Points>
+{/each}
 <T.Points>
 	<T is={dotGeometry} />
 	<T is={dotMaterial} {size} color={new Color($controls.Color)} />
 </T.Points>
-
-<T.Line>
-	<T is={lineGeometry} />
-	<T is={lineMaterial} color={new Color($controls.Color)} />
-</T.Line>
