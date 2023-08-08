@@ -1,17 +1,16 @@
 <script lang="ts">
 	import { T, useFrame } from '@threlte/core';
 	import {
-		BufferAttribute,
 		BufferGeometry,
 		Float32BufferAttribute,
-		LineBasicMaterial,
 		PointsMaterial,
-		Color
+		Color,
+		type NormalBufferAttributes
 	} from 'three';
 	import * as knobby from 'svelte-knobby';
 	import { lorenzPositions } from './stores';
 
-	export let MAX_POINTS = 10_000;
+	export let MAX_POINTS = 500;
 	export let dotColor = '#ff2211';
 	export let name: string;
 
@@ -31,7 +30,6 @@
 			x = value['Starting Position'].x;
 			y = value['Starting Position'].y;
 			z = value['Starting Position'].z;
-			i = 0;
 			// return value;
 		},
 		Remove: () => {
@@ -46,12 +44,10 @@
 	}
 
 	const dotGeometry = new BufferGeometry();
-	const lineGeometry = new BufferGeometry();
 
 	const dotMaterial = new PointsMaterial({
 		sizeAttenuation: false
 	});
-	const lineMaterial = new LineBasicMaterial();
 
 	// let opacity = 1;
 	let size = 5;
@@ -61,9 +57,8 @@
 	let c = 8.0 / 3.0;
 
 	const dt = 0.01;
-	let i = 0;
 
-	lineGeometry.setAttribute('position', new BufferAttribute(new Float32Array(MAX_POINTS * 3), 3));
+	let trail: [BufferGeometry<NormalBufferAttributes>, PointsMaterial][] = [];
 
 	useFrame(() => {
 		const dx = a * (y - x) * dt;
@@ -73,14 +68,17 @@
 		y = y + dy;
 		z = z + dz;
 
-		const positions = lineGeometry.getAttribute('position').array;
-		positions[i++] = x;
-		positions[i++] = y;
-		positions[i++] = z;
+		const geometry = new BufferGeometry();
+		geometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));
+		const material = new PointsMaterial({
+			sizeAttenuation: false
+		});
+		// trail = [...trail, [geometry, material]].slice(-MAX_POINTS);
+		trail.push([geometry, material]);
+		trail = trail.slice(-MAX_POINTS);
+		// console.log({ trail });
 
 		dotGeometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));
-		lineGeometry.setAttribute('position', new BufferAttribute(positions, 3));
-		lineGeometry.setDrawRange(0, i / 3);
 	});
 </script>
 
@@ -89,7 +87,18 @@
 	<T is={dotMaterial} {size} color={new Color($controls.Color)} />
 </T.Points>
 
-<T.Line>
+{#each trail as [geometry, material], i (geometry.attributes.position.array)}
+	<T.Points>
+		<T is={geometry} />
+		<T
+			is={material}
+			size={2}
+			color={new Color(!((trail.length - i) % 10) ? 0.75 : i / trail.length, 0, 0)}
+		/>
+	</T.Points>
+{/each}
+
+<!-- <T.Line>
 	<T is={lineGeometry} />
 	<T is={lineMaterial} color={new Color($controls.Color)} />
-</T.Line>
+</T.Line> -->
