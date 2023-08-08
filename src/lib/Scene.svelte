@@ -21,7 +21,7 @@
 	function addDot() {
 		const newDot = {
 			name: `Dot ${$lorenzPositions.length + 1}`,
-			dotColor: '#ff2211',
+			dotColor: '#fff5f5',
 			x: Number(Math.random().toFixed(10)),
 			y: Number(Math.random().toFixed(10)),
 			z: Number(Math.random().toFixed(10))
