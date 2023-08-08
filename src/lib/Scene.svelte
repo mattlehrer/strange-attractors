@@ -8,12 +8,12 @@
 	const controls = knobby.panel({
 		$id: 'main',
 		autorotate: true,
-		'Add Dot': addDot,
-		'Add 5 Dots': () => {
-			for (let i = 0; i < 5; i++) {
-				addDot();
-			}
-		}
+		'Add Dot': addDot
+		// 'Add 5 Dots': () => {
+		// 	for (let i = 0; i < 5; i++) {
+		// 		addDot();
+		// 	}
+		// }
 	});
 
 	$controls.message = $controls.message;
