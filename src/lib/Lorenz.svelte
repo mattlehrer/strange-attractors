@@ -11,12 +11,12 @@
 	import { lorenzPositions } from './stores';
 	import { hexToRgb } from './utils';
 
-	export let MAX_POINTS = 2_500;
 	export let dotColor = '#ff2211';
 	export let name: string;
 
 	export let init = [0.01, 0, 0];
 	let [x, y, z] = init;
+	let trailLength = 2_500;
 
 	const controls = knobby.panel({
 		$id: `${name}`,
@@ -29,9 +29,9 @@
 			max: 100,
 			step: 1
 		},
-		MAX_POINTS: {
+		trailLength: {
 			$label: 'Trail Length',
-			value: MAX_POINTS,
+			value: trailLength,
 			min: 100,
 			max: 10_000,
 			step: 100
@@ -88,10 +88,8 @@
 		const material = new PointsMaterial({
 			sizeAttenuation: false
 		});
-		// trail = [...trail, [geometry, material]].slice(-MAX_POINTS);
 		trail.push([geometry, material]);
-		trail = trail.slice(-MAX_POINTS);
-		// console.log({ trail });
+		trail = trail.slice(-$controls.trailLength);
 
 		dotGeometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));
 	});
@@ -102,7 +100,7 @@
 	<T is={dotMaterial} {size} color={new Color($controls.Color)} />
 </T.Points>
 
-{#each trail as [geometry, material], i (geometry.attributes.position.array)}
+{#each trail as [geometry, material], i}
 	{@const r =
 		(rgb ? rgb[0] / 255 : 1) *
 		(!((trail.length - i) % Math.max(Math.floor(1000 * dt), 10))
