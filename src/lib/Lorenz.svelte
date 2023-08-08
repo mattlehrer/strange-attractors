@@ -9,6 +9,7 @@
 	} from 'three';
 	import * as knobby from 'svelte-knobby';
 	import { lorenzPositions } from './stores';
+	import { hexToRgb } from './utils';
 
 	export let MAX_POINTS = 500;
 	export let dotColor = '#ff2211';
@@ -51,6 +52,7 @@
 
 	// let opacity = 1;
 	let size = 5;
+	$: rgb = hexToRgb($controls.Color);
 
 	let a = 10;
 	let b = 28;
@@ -88,13 +90,18 @@
 </T.Points>
 
 {#each trail as [geometry, material], i (geometry.attributes.position.array)}
+	{@const r =
+		(rgb ? rgb[0] / 255 : 1) *
+		(!((trail.length - i) % 10) ? i / trail.length : i / trail.length / 4)}
+	{@const g =
+		(rgb ? rgb[1] / 255 : 1) *
+		(!((trail.length - i) % 10) ? i / trail.length : i / trail.length / 4)}
+	{@const b =
+		(rgb ? rgb[2] / 255 : 1) *
+		(!((trail.length - i) % 10) ? i / trail.length : i / trail.length / 4)}
 	<T.Points>
 		<T is={geometry} />
-		<T
-			is={material}
-			size={2}
-			color={new Color(!((trail.length - i) % 10) ? 0.75 : i / trail.length, 0, 0)}
-		/>
+		<T is={material} size={2} color={new Color(r, g, b)} />
 	</T.Points>
 {/each}
 
