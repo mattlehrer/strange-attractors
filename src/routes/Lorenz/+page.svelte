@@ -4,31 +4,21 @@
 
 <svelte:head>
 	<meta name="description" content="A 3D Lorenz Attractor built with Svelte and Three.js" />
+	<!-- disable zoom -->
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+	/>
 </svelte:head>
 
-<main>
-	<div>
-		<App />
-	</div>
-	<div>
-		<App />
-	</div>
-</main>
+<div>
+	<App />
+</div>
 
 <style>
-	main {
+	div {
 		position: relative;
 		width: 100vw;
 		height: 100vh;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		grid-template-rows: 1fr;
-		column-gap: 5%;
-		padding: 5%;
-	}
-	div {
-		position: relative;
-		width: 80%;
-		/* height: 100%; */
 	}
 </style>

@@ -13,10 +13,10 @@
 
 	export let dotColor = '#ff2211';
 	export let name: string;
+	export let trailLength = 2_500;
 
 	export let init = [0.01, 0, 0];
 	let [x, y, z] = init;
-	let trailLength = 2_500;
 
 	const controls = knobby.panel({
 		$id: `${name}`,
