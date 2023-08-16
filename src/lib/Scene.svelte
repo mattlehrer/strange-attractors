@@ -9,7 +9,7 @@
 	export let autorotate = false;
 </script>
 
-<T.PerspectiveCamera makeDefault position={[-150, 300, 150]} fov={20}>
+<T.PerspectiveCamera makeDefault position={[-150, 300, 150]} fov={13}>
 	<OrbitControls
 		autoRotate={autorotate}
 		enableZoom={true}
@@ -21,5 +21,5 @@
 </T.PerspectiveCamera>
 
 {#each $lorenzPositions as dot (dot.name)}
-	<Lorenz color={dot.dotColor} trailLength={250} speed={120} />
+	<Lorenz color={dot.dotColor} trailLength={200} speed={120} />
 {/each}

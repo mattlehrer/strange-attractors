@@ -6,9 +6,9 @@
 </script>
 
 <article>
-	<p>
+	<a href={`/${type}`}>
 		{type}
-	</p>
+	</a>
 	<Canvas useLegacyLights={false}>
 		<Scene />
 	</Canvas>
@@ -19,13 +19,15 @@
 		max-height: 250px;
 		min-height: 250px;
 		height: 250px;
-		background: oklch(18% 0.03 265.91);
+		background: oklch(18% 0.03 265);
 		border-radius: 10%;
 	}
 
-	p {
-		color: oklch(85% 0.03 265.91);
+	a {
+		display: block;
+		color: oklch(85% 0.03 265);
 		font-size: 1.25rem;
 		margin-bottom: 0.75rem;
+		text-decoration: none;
 	}
 </style>

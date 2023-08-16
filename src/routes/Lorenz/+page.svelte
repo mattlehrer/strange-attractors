@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Canvas } from '@threlte/core';
-	import SceneControlWrapper from '$lib/SceneControlWrapper.svelte';
+	import SceneControlWrapper from './SceneControlWrapper.svelte';
 </script>
 
 <svelte:head>

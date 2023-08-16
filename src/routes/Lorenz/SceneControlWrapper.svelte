@@ -1,16 +1,17 @@
 <script lang="ts">
 	import { T } from '@threlte/core';
-	import { Grid, OrbitControls } from '@threlte/extras';
-	import Lorenz from './Lorenz.svelte';
-	import { lorenzPositions } from './stores';
+	import { OrbitControls } from '@threlte/extras';
+	import LorenzWrapper from './LorenzControlWrapper.svelte';
+	// import Lorenz from '$lib/Lorenz.svelte';
 	import * as knobby from 'svelte-knobby';
+	import { lorenzPositions } from './positions';
 
 	const controls = knobby.panel({
 		$id: 'main',
 		autorotate: true,
 		'Add Dot': addDot,
-		'Add 25 Dots': () => {
-			for (let i = 0; i < 25; i++) {
+		'Add 5 Dots': () => {
+			for (let i = 0; i < 5; i++) {
 				addDot();
 			}
 		}
@@ -22,9 +23,9 @@
 		const newDot = {
 			name: `Dot ${$lorenzPositions.length + 1}`,
 			dotColor: '#fff5f5',
-			x: Number(Math.random().toFixed(10)),
-			y: Number(Math.random().toFixed(10)),
-			z: Number(Math.random().toFixed(10))
+			x: Number((Math.random() * 50 - 25).toFixed(10)),
+			y: Number((Math.random() * 50 - 25).toFixed(10)),
+			z: Number((Math.random() * 50 - 25).toFixed(10))
 		};
 		$lorenzPositions = [...$lorenzPositions, newDot];
 	}
@@ -42,5 +43,10 @@
 </T.PerspectiveCamera>
 
 {#each $lorenzPositions as dot (dot.name)}
-	<Lorenz color={dot.dotColor} trailLength={1000} speed={50} />
+	<LorenzWrapper
+		name={dot.name}
+		dotColor={dot.dotColor}
+		trailLength={200}
+		init={[dot.x, dot.y, dot.z]}
+	/>
 {/each}

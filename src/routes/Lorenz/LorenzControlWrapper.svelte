@@ -1,16 +1,14 @@
 <script lang="ts">
 	import * as knobby from 'svelte-knobby';
-	import { lorenzPositions } from './stores';
-	import Lorenz from './Lorenz.svelte';
+	import { lorenzPositions } from './positions';
+	import Lorenz from '$lib/Lorenz.svelte';
 
 	export let name: string;
 	export let trailLength = 2_500;
 	export let dotColor = '#ff2211';
 	export let init = [0.01, 0, 0];
 
-	let x: number;
-	let y: number;
-	let z: number;
+	let [x, y, z] = init;
 
 	const controls = knobby.panel({
 		$id: `${name}`,
@@ -20,15 +18,15 @@
 			$label: 'Speed',
 			value: 50,
 			min: 1,
-			max: 100,
+			max: 200,
 			step: 1
 		},
 		trailLength: {
 			$label: 'Trail Length',
 			value: trailLength,
-			min: 100,
+			min: 1,
 			max: 10_000,
-			step: 100
+			step: 1
 		},
 		'Starting Position': {
 			x: init[0],
@@ -53,4 +51,9 @@
 	}
 </script>
 
-<Lorenz color={$controls.Color} speed={$controls.Speed} init={[x, y, z]} />
+<Lorenz
+	color={$controls.Color}
+	speed={$controls.Speed}
+	init={[x, y, z]}
+	trailLength={$controls.trailLength}
+/>
