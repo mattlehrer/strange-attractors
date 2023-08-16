@@ -7,56 +7,17 @@
 		Color,
 		type NormalBufferAttributes
 	} from 'three';
-	import * as knobby from 'svelte-knobby';
-	import { lorenzPositions } from './stores';
 	import { hexToRgb } from './utils';
 
-	export let dotColor = '#ff2211';
-	export let name: string;
-	export let trailLength = 2_500;
-
-	export let init = [0.01, 0, 0];
+	export let color = '#fff';
+	export let speed = 75;
+	export let trailLength = 10;
+	export let init = [
+		Number(Math.random().toFixed(10)),
+		Number(Math.random().toFixed(10)),
+		Number(Math.random().toFixed(10))
+	];
 	let [x, y, z] = init;
-
-	const controls = knobby.panel({
-		$id: `${name}`,
-		$label: `${name}`,
-		Color: dotColor,
-		Speed: {
-			$label: 'Speed',
-			value: 50,
-			min: 1,
-			max: 100,
-			step: 1
-		},
-		trailLength: {
-			$label: 'Trail Length',
-			value: trailLength,
-			min: 100,
-			max: 10_000,
-			step: 100
-		},
-		'Starting Position': {
-			x: init[0],
-			y: init[1],
-			z: init[2]
-		},
-		Reset: (value) => {
-			x = value['Starting Position'].x;
-			y = value['Starting Position'].y;
-			z = value['Starting Position'].z;
-			// return value;
-		},
-		Remove: () => {
-			$lorenzPositions = $lorenzPositions.filter((dot) => dot.name !== name);
-		}
-	});
-	$controls.name = $controls.name;
-	try {
-		localStorage.setItem(`svelte-knobby:open:${name}`, 'false');
-	} catch {
-		// do nothing
-	}
 
 	const dotGeometry = new BufferGeometry();
 
@@ -66,12 +27,12 @@
 
 	// let opacity = 1;
 	let size = 5;
-	$: rgb = hexToRgb($controls.Color);
+	$: rgb = hexToRgb(color);
 
 	let a = 10;
 	let b = 28;
 	let c = 8.0 / 3.0;
-	$: dt = $controls.Speed ? $controls.Speed / 5000 : 0.01;
+	$: dt = speed ? speed / 5000 : 0.01;
 
 	let trail: [BufferGeometry<NormalBufferAttributes>, PointsMaterial][] = [];
 
@@ -89,7 +50,7 @@
 			sizeAttenuation: false
 		});
 		trail.push([geometry, material]);
-		trail = trail.slice(-$controls.trailLength);
+		trail = trail.slice(-trailLength);
 
 		dotGeometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));
 	});
@@ -97,7 +58,7 @@
 
 <T.Points>
 	<T is={dotGeometry} />
-	<T is={dotMaterial} {size} color={new Color($controls.Color)} />
+	<T is={dotMaterial} {size} color={new Color(color)} />
 </T.Points>
 
 {#each trail as [geometry, material], i}

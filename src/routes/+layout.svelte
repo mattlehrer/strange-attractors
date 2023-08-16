@@ -1,13 +1,18 @@
-<slot />
+<script lang="ts">
+	import '../app.css';
+</script>
 
 <svelte:head>
 	<meta name="theme-color" content="#0d1320" />
+	<title>Strange Attractor Exploration</title>
 </svelte:head>
+
+<slot />
 
 <style>
 	:global(body) {
 		margin: 0;
-		background: #0d1320;
-		background: linear-gradient(180deg, rgba(13, 19, 32, 1) 0%, rgba(8, 12, 21, 1) 100%);
+		font-family: 'Ranade-Variable', sans-serif;
+		font-weight: 200;
 	}
 </style>

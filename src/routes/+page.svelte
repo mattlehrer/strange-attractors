@@ -1,5 +1,5 @@
 <script lang="ts">
-	import App from '$lib/App.svelte';
+	import Card from '$lib/Card.svelte';
 </script>
 
 <svelte:head>
@@ -8,27 +8,55 @@
 
 <main>
 	<div>
-		<App />
+		<Card />
 	</div>
 	<div>
-		<App />
+		<Card />
+	</div>
+	<div>
+		<Card />
+	</div>
+	<div>
+		<Card />
+	</div>
+	<div>
+		<Card />
+	</div>
+	<div>
+		<Card />
+	</div>
+	<div>
+		<Card />
+	</div>
+	<div>
+		<Card />
+	</div>
+	<div>
+		<Card />
+	</div>
+	<div>
+		<Card />
+	</div>
+	<div>
+		<Card />
+	</div>
+	<div>
+		<Card />
 	</div>
 </main>
 
 <style>
-	main {
-		position: relative;
-		width: 100vw;
-		height: 100vh;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		grid-template-rows: 1fr;
-		column-gap: 5%;
-		padding: 5%;
+	:global(body) {
+		background-color: hsl(221, 42%, 12%);
 	}
-	div {
-		position: relative;
-		width: 80%;
-		/* height: 100%; */
+	main {
+		min-height: 100%;
+		padding: min(75px, 10%);
+		display: grid;
+		justify-content: center;
+		grid-template-columns: repeat(auto-fill, 250px);
+		grid-template-rows: repeat(auto-fill, 250px + 1.25rem);
+		/* grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); */
+		gap: max(2%, 50px) max(5%, 50px);
 	}
 </style>

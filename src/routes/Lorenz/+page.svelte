@@ -1,5 +1,6 @@
 <script lang="ts">
-	import App from '$lib/App.svelte';
+	import { Canvas } from '@threlte/core';
+	import SceneControlWrapper from '$lib/SceneControlWrapper.svelte';
 </script>
 
 <svelte:head>
@@ -12,10 +13,16 @@
 </svelte:head>
 
 <div>
-	<App />
+	<Canvas useLegacyLights={false}>
+		<SceneControlWrapper />
+	</Canvas>
 </div>
 
 <style>
+	:global(body) {
+		background-color: hsl(221, 42%, 0%);
+	}
+
 	div {
 		position: relative;
 		width: 100vw;
