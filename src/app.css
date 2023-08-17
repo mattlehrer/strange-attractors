@@ -1,1 +1,14 @@
 @import url('ranade.css');
+
+html,
+body {
+	margin: 0;
+}
+
+body {
+	font-family: 'Ranade-Variable', sans-serif;
+	font-weight: 200;
+	color: oklch(85% 0.03 265);
+
+	background-color: oklch(21% 0.03 265);
+}

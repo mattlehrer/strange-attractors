@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Canvas } from '@threlte/core';
-	import SceneControlWrapper from './SceneControlWrapper.svelte';
 </script>
 
 <svelte:head>
@@ -14,18 +13,32 @@
 
 <div>
 	<Canvas useLegacyLights={false}>
-		<SceneControlWrapper />
+		<slot />
 	</Canvas>
+	<nav>
+		<a href="/">Strange Attractors</a>
+	</nav>
 </div>
 
 <style>
-	:global(body) {
-		background-color: hsl(221, 42%, 0%);
-	}
-
 	div {
 		position: relative;
 		width: 100vw;
 		height: 100vh;
+		background-color: oklch(21% 0.03 265);
+	}
+
+	nav {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		padding: 0.5rem;
+	}
+	a {
+		text-decoration: none;
+	}
+
+	a:visited {
+		color: inherit;
 	}
 </style>

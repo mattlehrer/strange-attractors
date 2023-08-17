@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { T } from '@threlte/core';
 	import { OrbitControls } from '@threlte/extras';
-	import LorenzWrapper from './LorenzControlWrapper.svelte';
-	// import Lorenz from '$lib/Lorenz.svelte';
+	import SprottWrapper from './SprottControlWrapper.svelte';
 	import * as knobby from 'svelte-knobby';
-	import { lorenzPositions } from './positions';
+	import { dots } from './positions';
 
 	const controls = knobby.panel({
 		$id: 'main',
@@ -19,34 +18,36 @@
 
 	$controls.message = $controls.message;
 
+	const x = 1;
+
 	function addDot() {
 		const newDot = {
-			name: `Dot ${$lorenzPositions.length + 1}`,
+			name: `Dot ${$dots.length + 1}`,
 			dotColor: '#fff5f5',
-			x: Number((Math.random() * 50 - 25).toFixed(10)),
-			y: Number((Math.random() * 50 - 25).toFixed(10)),
-			z: Number((Math.random() * 50 - 25).toFixed(10))
+			x: Number((Math.random() * x).toFixed(10)),
+			y: Number((Math.random() * x).toFixed(10)),
+			z: Number((Math.random() * x).toFixed(10))
 		};
-		$lorenzPositions = [...$lorenzPositions, newDot];
+		$dots = [newDot, ...$dots];
 	}
 </script>
 
-<T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={35}>
+<T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={1}>
 	<OrbitControls
 		autoRotate={$controls.autorotate}
 		enableZoom={true}
 		enableDamping
 		autoRotateSpeed={0.5}
 		target.y={0}
-		target.z={25}
+		target.z={0}
 	/>
 </T.PerspectiveCamera>
 
-{#each $lorenzPositions as dot (dot.name)}
-	<LorenzWrapper
+{#each $dots as dot (dot.name)}
+	<SprottWrapper
 		name={dot.name}
 		dotColor={dot.dotColor}
-		trailLength={200}
+		trailLength={1000}
 		init={[dot.x, dot.y, dot.z]}
 	/>
 {/each}

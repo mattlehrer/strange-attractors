@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.css';
+	import '../../app.css';
 </script>
 
 <svelte:head>
@@ -8,11 +8,3 @@
 </svelte:head>
 
 <slot />
-
-<style>
-	:global(body) {
-		margin: 0;
-		font-family: 'Ranade-Variable', sans-serif;
-		font-weight: 200;
-	}
-</style>

@@ -5,3 +5,5 @@ export const hexToRgb = (hex: string) => {
 		.match(/.{2}/g)
 		?.map((x) => parseInt(x, 16));
 };
+
+export type System = 'Lorenz' | 'Sprott';
