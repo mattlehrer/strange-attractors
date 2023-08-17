@@ -24,9 +24,9 @@
 		const newDot = {
 			name: `Dot ${$dots.length + 1}`,
 			dotColor: '#fff5f5',
-			x: Number((Math.random() * x).toFixed(10)),
-			y: Number((Math.random() * x).toFixed(10)),
-			z: Number((Math.random() * x).toFixed(10))
+			x: Math.random() * x,
+			y: Math.random() * x,
+			z: Math.random() * x
 		};
 		$dots = [newDot, ...$dots];
 	}
