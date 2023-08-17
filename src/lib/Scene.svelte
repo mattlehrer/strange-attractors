@@ -36,8 +36,8 @@
 		Sprott: {
 			near: 0.01,
 			fov: 10,
-			position: [10, 20, 20],
-			target: [0, 0, 0],
+			position: [30, 20, 20],
+			target: [1, 1, 1],
 			trailLength: 500,
 			speed: 100,
 			zoom: 1,
