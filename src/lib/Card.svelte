@@ -35,6 +35,7 @@
 	}
 
 	a {
+		color: inherit;
 		font-size: 1.25rem;
 		text-decoration: none;
 		padding-inline-start: 0.25rem;
