@@ -23,11 +23,13 @@
 
 <style>
 	main {
-		--canvas-side: 250px;
+		--canvas-side: 300px;
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: min(75px, 10%);
 		min-height: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 
 	h1 {
