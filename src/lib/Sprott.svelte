@@ -33,8 +33,8 @@
 
 	useFrame(() => {
 		const dx = (y + a * x * y + x * z) * dt;
-		const dy = (1 - b * x * x + y * z) * dt;
-		const dz = (x - x * x - y * y) * dt;
+		const dy = (1 - b * x ** 2 + y * z) * dt;
+		const dz = (x - x ** 2 - y ** 2) * dt;
 		x = x + dx;
 		y = y + dy;
 		z = z + dz;
