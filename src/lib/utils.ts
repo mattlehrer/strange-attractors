@@ -6,4 +6,4 @@ export const hexToRgb = (hex: string) => {
 		?.map((x) => parseInt(x, 16));
 };
 
-export type System = 'Lorenz' | 'Sprott';
+export type System = 'Lorenz' | 'Sprott' | 'Halvorsen';

@@ -12,12 +12,9 @@
 <main>
 	<h1>Strange Attractors</h1>
 	<div class="attractors">
-		<div>
-			<Card type={'Lorenz'} />
-		</div>
-		<div>
-			<Card type={'Sprott'} />
-		</div>
+		<Card type={'Lorenz'} />
+		<Card type={'Sprott'} />
+		<Card type={'Halvorsen'} />
 	</div>
 </main>
 

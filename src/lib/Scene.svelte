@@ -3,6 +3,7 @@
 	import { OrbitControls } from '@threlte/extras';
 	import Lorenz from './Lorenz.svelte';
 	import Sprott from './Sprott.svelte';
+	import Halvorsen from './Halvorsen.svelte';
 	import { writable } from 'svelte/store';
 	import type { System } from './utils';
 
@@ -43,6 +44,17 @@
 			zoom: 1,
 			offsetX: 0,
 			offsetY: 0
+		},
+		Halvorsen: {
+			near: 0.01,
+			fov: 10,
+			position: [150, 150, 150],
+			target: [-3, -2, -4],
+			trailLength: 500,
+			speed: 50,
+			zoom: 1,
+			offsetX: -10,
+			offsetY: 0
 		}
 	};
 
@@ -82,6 +94,12 @@
 		/>
 	{:else if type === 'Sprott'}
 		<Sprott
+			color={dot.dotColor}
+			trailLength={settings[type].trailLength}
+			speed={settings[type].speed}
+		/>
+	{:else if type === 'Halvorsen'}
+		<Halvorsen
 			color={dot.dotColor}
 			trailLength={settings[type].trailLength}
 			speed={settings[type].speed}
