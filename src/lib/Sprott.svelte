@@ -45,6 +45,7 @@
 			sizeAttenuation: false
 		});
 		trail.push([geometry, material]);
+		// Is there a way to alternate instead of slicing?
 		trail = trail.slice(-trailLength);
 
 		dotGeometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));

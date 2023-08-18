@@ -1,9 +1,5 @@
-<script lang="ts">
-	import '../../app.css';
-</script>
-
 <svelte:head>
-	<meta name="theme-color" content="#0d1320" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	<title>Strange Attractor Exploration</title>
 </svelte:head>
 
