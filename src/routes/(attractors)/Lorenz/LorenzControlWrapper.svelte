@@ -33,7 +33,7 @@
 			y: init[1],
 			z: init[2]
 		},
-		Reset: (value) => {
+		Reset: (value: typeof $controls) => {
 			x = value['Starting Position'].x;
 			y = value['Starting Position'].y;
 			z = value['Starting Position'].z;
