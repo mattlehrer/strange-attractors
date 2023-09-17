@@ -31,6 +31,7 @@
 
 	h1 {
 		font-weight: 700;
+		view-transition-name: title;
 	}
 
 	.attractors {

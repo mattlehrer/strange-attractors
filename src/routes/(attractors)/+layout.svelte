@@ -58,6 +58,10 @@
 		gap: 0.75rem;
 	}
 
+	nav > a > span {
+		view-transition-name: title;
+	}
+	
 	svg {
 		opacity: 0.75;
 	}
