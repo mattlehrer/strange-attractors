@@ -51,7 +51,6 @@
 	}
 
 	a {
-		color: inherit;
 		font-size: 1.25rem;
 		text-decoration: none;
 		padding-inline: 0.25rem;
@@ -59,9 +58,5 @@
 		align-items: center;
 		gap: 0.75rem;
 		justify-content: end;
-	}
-
-	a:visited {
-		color: inherit;
 	}
 </style>
