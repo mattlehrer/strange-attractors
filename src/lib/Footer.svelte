@@ -24,10 +24,10 @@
 
 <style>
 	footer {
-		width: 100%;
+		width: max(70%, 300px);
 		max-width: 1200px;
 		margin: auto auto 3rem auto;
-		padding: 2rem 2rem;
+		padding: 5rem 2rem 2rem;
 		gap: 1rem;
 		display: flex;
 		flex-wrap: wrap;
@@ -35,10 +35,14 @@
 		align-items: center;
 		opacity: 0.6;
 
-		& a {
-			color: inherit;
-			text-decoration: none;
+		@media screen and (min-width: 451px) {
+			width: 100%;
 		}
+	}
+
+	a {
+		color: var(--light-color);
+		text-decoration: none;
 	}
 
 	.made {
@@ -46,7 +50,7 @@
 		align-items: center;
 		order: initial;
 
-		@media screen and (max-width: 400px) {
+		@media screen and (max-width: 450px) {
 			order: 1;
 			margin-top: 1rem;
 		}
