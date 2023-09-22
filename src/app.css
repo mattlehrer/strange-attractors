@@ -1,10 +1,16 @@
 body {
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+
 	--light-color: oklch(85% 0.03 265);
 	--accent-color: oklch(95% 0.03 265);
 	font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
 	font-weight: 400;
 	color: var(--light-color);
 	background-color: oklch(21% 0.03 265);
+
+	overflow-y: auto;
+	scrollbar-gutter: stable both-edges;
 }
 
 *,
@@ -15,11 +21,6 @@ body {
 
 * {
 	margin: 0;
-}
-
-body {
-	line-height: 1.5;
-	-webkit-font-smoothing: antialiased;
 }
 
 img,

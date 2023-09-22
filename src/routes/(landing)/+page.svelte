@@ -56,7 +56,7 @@
 
 <style>
 	main {
-		--canvas-side: 300px;
+		--canvas-side: min(300px, 80vw);
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: min(75px, 10%);
