@@ -34,8 +34,8 @@
 <style>
 	article {
 		display: grid;
-		grid-template-columns: 1;
-		grid-template-rows: 2;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr auto;
 		gap: 0.75rem;
 		position: relative;
 	}
