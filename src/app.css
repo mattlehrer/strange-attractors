@@ -12,6 +12,7 @@ body {
 	background-color: oklch(21% 0.03 265);
 }
 
+a,
 a:visited {
 	color: inherit;
 }
