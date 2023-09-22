@@ -35,7 +35,7 @@
 <T.PerspectiveCamera
 	makeDefault
 	position={[150, 150, 150]}
-	fov={10}
+	fov={11}
 	view={{
 		enabled: true,
 		fullWidth: 250,

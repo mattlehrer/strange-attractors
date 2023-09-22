@@ -1,8 +1,6 @@
 <script lang="ts">
 	import '../app.css';
 	import { onNavigate } from '$app/navigation';
-	import Footer from '$lib/Footer.svelte';
-	import Header from '$lib/Header.svelte';
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -21,18 +19,4 @@
 	<title>Strange Attractor Exploration</title>
 </svelte:head>
 
-<div>
-	<Header />
-
-	<slot />
-
-	<Footer />
-</div>
-
-<style>
-	div {
-		min-height: 100vh;
-		display: grid;
-		grid-template-rows: auto 1fr auto;
-	}
-</style>
+<slot />
