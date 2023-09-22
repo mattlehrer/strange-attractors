@@ -22,28 +22,17 @@
 				space as the calculations for x, y, and z which change over time. The first one was
 				discovered by Edward Lorenz while trying to model weather patterns and is the inspiration
 				for the term and concept of
-				<a href="https://en.wikipedia.org/wiki/Butterfly_effect">the butterfly effect</a>. There are
-				a few aspects that make these systems interesting.
+				<a href="https://en.wikipedia.org/wiki/Butterfly_effect">the butterfly effect</a>.
 			</p>
 			<p>
-				First, there is no way to predict values for some time in the future. The only way to
-				calculate a future position is to iterate through the values, from moment to moment. There
-				are rules which govern the system but an appearance of randomness.
+				The visualizations of the attractors are interactive. You can drag them around and zoom in
+				and out for different viewpoints. The grid on the landing page just shows one initial
+				position and path moving over time. On each of the individual attractor pages, however,
+				additional "dots" can be added, each with their own starting position and path. You can
+				control the starting positions and colors of these.
 			</p>
 			<p>
-				Second, the equations are sensitive to initial conditions in the extreme. The tiniest
-				difference in initial values fairly quickly results in a wildly different path through
-				space. This is the meaning of the butterfly effect. A small difference here causes a big
-				difference over there. This is a primary principle of <a
-					href="https://en.wikipedia.org/wiki/Chaos_theory">chaos theory</a
-				>, which can be summarized as: "the present determines the future, but the approximate
-				present does not approximately determine the future."
-			</p>
-			<p>
-				The site was inspired by the book <a
-					href="https://openlibrary.org/works/OL15899W/Chaos?edition=key:/books/OL7960927M"
-					>Chaos by James Gleick</a
-				>.
+				There is a little more discussion on the <a href="/about">about page</a>.
 			</p>
 		</div>
 	</details>
@@ -55,29 +44,10 @@
 </main>
 
 <style>
-	main {
-		--canvas-side: min(300px, 80vw);
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: min(75px, 10%);
-		min-height: 100%;
-		display: flex;
-		flex-direction: column;
-	}
-
-	h1 {
-		font-weight: 700;
-		view-transition-name: title;
-	}
-
-	p {
-		font-size: large;
-		max-width: 70ch;
-	}
-
 	.attractors {
 		margin-top: 2rem;
 		display: grid;
+		width: 100%;
 		grid-template-columns: repeat(auto-fill, var(--canvas-side));
 		grid-template-rows: repeat(auto-fill, var(--canvas-side) + 1.25rem);
 		gap: max(2%, 50px) max(5%, 50px);
