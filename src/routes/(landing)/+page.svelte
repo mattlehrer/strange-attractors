@@ -11,7 +11,6 @@
 </svelte:head>
 
 <main>
-	<h1>Strange Attractors</h1>
 	<details use:animatedDetails>
 		<summary>What is this?</summary>
 		<div>
@@ -32,7 +31,7 @@
 				control the starting positions and colors of these.
 			</p>
 			<p>
-				There is a little more discussion on the <a href="/about">about page</a>.
+				There is a few more details on the <a href="/about">about page</a>.
 			</p>
 		</div>
 	</details>

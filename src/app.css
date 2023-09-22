@@ -9,6 +9,8 @@ body {
 
 	--light-color: oklch(85% 0.03 265);
 	--accent-color: oklch(95% 0.03 265);
+	--canvas-side: min(300px, 80vw);
+
 	font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
 	font-weight: 400;
 	color: var(--light-color);
@@ -69,11 +71,10 @@ a:hover {
 }
 
 main {
-	--canvas-side: min(300px, 80vw);
 	max-width: 1200px;
 	width: 100%;
 	margin: 0 auto;
-	padding: min(75px, 10%);
+	padding: 0 min(75px, 10%);
 	min-height: 100%;
 	display: flex;
 	flex-direction: column;
