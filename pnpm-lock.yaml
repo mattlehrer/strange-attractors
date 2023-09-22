@@ -50,6 +50,9 @@ devDependencies:
   svelte:
     specifier: ^4.2.1
     version: 4.2.1
+  svelte-animated-details:
+    specifier: ^1.0.1
+    version: 1.0.1
   svelte-check:
     specifier: ^3.5.2
     version: 3.5.2(postcss@8.4.30)(svelte@4.2.1)
@@ -2278,6 +2281,10 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       has-flag: 4.0.0
+    dev: true
+
+  /svelte-animated-details@1.0.1:
+    resolution: {integrity: sha512-solG1K+4gVwPQuHLxQvxr9JSZnLWD4ANcTuH3vGe2ors+mZQRW+doKGhLvI8twlel/5zkVW1CqqMCeF25+NKNg==}
     dev: true
 
   /svelte-check@3.5.2(postcss@8.4.30)(svelte@4.2.1):
