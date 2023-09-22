@@ -25,8 +25,8 @@
 <style>
 	footer {
 		width: max(70%, 300px);
+		margin: auto auto 1rem auto;
 		max-width: 1200px;
-		margin: auto auto 3rem auto;
 		padding: 5rem 2rem 2rem;
 		gap: 1rem;
 		display: flex;
@@ -37,6 +37,7 @@
 
 		@media screen and (min-width: 451px) {
 			width: 100%;
+			margin: auto auto 3rem auto;
 		}
 	}
 
