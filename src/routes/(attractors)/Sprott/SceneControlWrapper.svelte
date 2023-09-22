@@ -38,6 +38,7 @@
 		enableZoom={true}
 		enableDamping
 		autoRotateSpeed={0.5}
+		target.x={0.7}
 		target.y={0}
 		target.z={0}
 	/>
