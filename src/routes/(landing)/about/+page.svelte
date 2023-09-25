@@ -21,7 +21,12 @@
 		govern the system but an appearance of randomness.
 	</p>
 	<p>
-		Second, the equations are sensitive to initial conditions in the extreme. The tiniest difference
+		Second, the positions never repeat. As the dots move through space, they never cross the same
+		exact point again. If they did, from that point forward the positions would repeat. There would
+		be a loop and the system would be predictable.
+	</p>
+	<p>
+		Third, the equations are sensitive to initial conditions in the extreme. The tiniest difference
 		in initial values quickly results in a wildly different path through space. This is the meaning
 		of the butterfly effect. A small difference here causes a big difference over there. This is a
 		primary principle of <a href="https://en.wikipedia.org/wiki/Chaos_theory">chaos theory</a>,

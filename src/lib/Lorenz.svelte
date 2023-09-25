@@ -1,13 +1,7 @@
 <script lang="ts">
 	import { T, useFrame } from '@threlte/core';
-	import {
-		BufferGeometry,
-		Float32BufferAttribute,
-		PointsMaterial,
-		Color,
-		type NormalBufferAttributes
-	} from 'three';
-	import { hexToRgb } from './utils';
+	import { BufferGeometry, Color, Float32BufferAttribute, PointsMaterial } from 'three';
+	import { hexToRgb, trailColors } from './utils';
 
 	export let color = '#fff';
 	export let speed = 75;
@@ -25,6 +19,11 @@
 		sizeAttenuation: false
 	});
 
+	const geometry = new BufferGeometry();
+	const material = new PointsMaterial({
+		sizeAttenuation: false
+	});
+
 	// let opacity = 1;
 	let size = 5;
 	$: rgb = hexToRgb(color);
@@ -34,7 +33,9 @@
 	let c = 8.0 / 3.0;
 	$: dt = speed ? speed / 5000 : 0.01;
 
-	let trail: [BufferGeometry<NormalBufferAttributes>, PointsMaterial][] = [];
+	let trailPositions: Array<number> = [];
+	let colors: Array<number> = [];
+	$: colors = trailColors({ trailLength, rgb, dt });
 
 	useFrame(() => {
 		const dx = a * (y - x) * dt;
@@ -44,46 +45,23 @@
 		y = y + dy;
 		z = z + dz;
 
-		const geometry = new BufferGeometry();
-		geometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));
-		const material = new PointsMaterial({
-			sizeAttenuation: false
-		});
-		trail.push([geometry, material]);
-		trail = trail.slice(-trailLength);
-
 		dotGeometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));
+
+		trailPositions.push(x, y, z);
+		trailPositions = trailPositions.slice(-trailLength * 3);
+		const tempColors = colors.slice(-trailPositions.length * 3);
+
+		geometry.setAttribute('position', new Float32BufferAttribute(trailPositions, 3));
+		geometry.setAttribute('color', new Float32BufferAttribute(tempColors, 3));
 	});
 </script>
 
 <T.Points>
 	<T is={dotGeometry} />
-	<T is={dotMaterial} {size} color={new Color(color)} />
+	<T is={dotMaterial} {size} {color} />
 </T.Points>
 
-{#each trail as [geometry, material], i}
-	{@const r =
-		(rgb ? rgb[0] / 255 : 1) *
-		(!((trail.length - i) % Math.max(Math.floor(1000 * dt), 10))
-			? i / trail.length
-			: i / trail.length / 4)}
-	{@const g =
-		(rgb ? rgb[1] / 255 : 1) *
-		(!((trail.length - i) % Math.max(Math.floor(1000 * dt), 10))
-			? i / trail.length
-			: i / trail.length / 4)}
-	{@const b =
-		(rgb ? rgb[2] / 255 : 1) *
-		(!((trail.length - i) % Math.max(Math.floor(1000 * dt), 10))
-			? i / trail.length
-			: i / trail.length / 4)}
-	<T.Points>
-		<T is={geometry} />
-		<T is={material} size={2} color={new Color(r, g, b)} />
-	</T.Points>
-{/each}
-
-<!-- <T.Line>
-	<T is={lineGeometry} />
-	<T is={lineMaterial} color={new Color($controls.Color)} />
-</T.Line> -->
+<T.Points>
+	<T is={geometry} />
+	<T is={material} vertexColors={true} size={2} />
+</T.Points>
