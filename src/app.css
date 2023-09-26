@@ -10,6 +10,7 @@ body {
 	--light-color: oklch(85% 0.03 265);
 	--accent-color: oklch(95% 0.03 265);
 	--canvas-side: min(300px, 80vw);
+	--header-spacer: 4vw;
 
 	font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
 	font-weight: 400;
@@ -93,4 +94,13 @@ p {
 	font-size: large;
 	max-width: 70ch;
 	margin-bottom: 1em;
+}
+
+button {
+	background: inherit;
+	border: none;
+	shadow: none;
+	color: inherit;
+	padding: 0;
+	margin: 0;
 }

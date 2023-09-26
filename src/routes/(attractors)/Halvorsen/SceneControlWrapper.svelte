@@ -2,33 +2,35 @@
 	import { T } from '@threlte/core';
 	import { OrbitControls } from '@threlte/extras';
 	import HalvorsenWrapper from './HalvorsenControlWrapper.svelte';
-	import * as knobby from 'svelte-knobby';
-	import { dots } from './positions';
+	import { controls } from './positions';
 
-	const controls = knobby.panel({
-		$id: 'main',
-		autorotate: true,
-		'Add Dot': addDot,
-		'Add 5 Dots': () => {
-			for (let i = 0; i < 5; i++) {
-				addDot();
-			}
-		}
-	});
+	// const controls = knobby.panel({
+	// 	$id: 'main',
+	// 	autorotate: true,
+	// 	'Add Dot': addDot,
+	// 	'Add 5 Dots': () => {
+	// 		for (let i = 0; i < 5; i++) {
+	// 			addDot();
+	// 		}
+	// 	}
+	// });
 
-	$controls.message = $controls.message;
+	// $controls.message = $controls.message;
 
 	const x = 1;
+	let dots = $controls.dots;
 
 	function addDot() {
 		const newDot = {
-			name: `Dot ${$dots.length + 1}`,
+			name: `Dot ${dots.length + 1}`,
 			dotColor: '#fff5f5',
 			x: Math.random() * x,
 			y: Math.random() * x,
-			z: Math.random() * x
+			z: Math.random() * x,
+			speed: 50,
+			trailLength: 1000,
 		};
-		$dots = [newDot, ...$dots];
+		dots = [newDot, ...dots];
 	}
 </script>
 
@@ -43,7 +45,7 @@
 		offsetX: -10,
 		offsetY: 0,
 		width: 250,
-		height: 250
+		height: 250,
 	}}
 >
 	<OrbitControls
@@ -57,11 +59,12 @@
 	/>
 </T.PerspectiveCamera>
 
-{#each $dots as dot (dot.name)}
+{#each dots as dot (dot.name)}
 	<HalvorsenWrapper
 		name={dot.name}
 		dotColor={dot.dotColor}
-		trailLength={1000}
+		trailLength={dot.trailLength}
 		init={[dot.x, dot.y, dot.z]}
+		speed={dot.speed}
 	/>
 {/each}

@@ -2,6 +2,13 @@
 	import Footer from '$lib/Footer.svelte';
 	import Header from '$lib/Header.svelte';
 	import { Canvas } from '@threlte/core';
+	import { SlidersHorizontal } from 'lucide-svelte';
+	import { fade } from 'svelte/transition';
+
+	$: innerWidth = 0;
+	$: controlsSize = Math.min(Math.max(innerWidth / 20, 20), 32);
+
+	let controlsOpen = false;
 </script>
 
 <svelte:head>
@@ -13,10 +20,20 @@
 	/>
 </svelte:head>
 
+<svelte:window bind:innerWidth />
+
 <div class="wrapper">
 	<div class="header">
 		<Header />
 	</div>
+	{#if innerWidth > 0}
+		<button in:fade on:click={() => (controlsOpen = !controlsOpen)} class="controls">
+			<SlidersHorizontal size={controlsSize} />
+		</button>
+	{/if}
+	{#if controlsOpen}
+		hello
+	{/if}
 
 	<Canvas useLegacyLights={false}>
 		<slot />
@@ -47,5 +64,11 @@
 
 	.footer {
 		bottom: 0;
+	}
+
+	.controls {
+		position: absolute;
+		top: var(--header-spacer);
+		right: var(--header-spacer);
 	}
 </style>

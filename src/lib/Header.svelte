@@ -16,8 +16,8 @@
 <style>
 	nav {
 		width: 100%;
-		margin: 1rem auto;
-		padding: 1rem min(75px, 10%);
+		margin: var(--header-spacer) auto;
+		padding: 0 min(75px, 10%);
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;

@@ -15,7 +15,7 @@ export const settings: Record<
 	}
 > = {
 	Lorenz: {
-		near: 0.1,
+		near: 0.01,
 		fov: 14,
 		position: [-200, 400, 200],
 		target: [0, 0, 30],
