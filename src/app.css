@@ -7,6 +7,7 @@ body {
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 
+	--dark-color: oklch(21% 0.03 265);
 	--light-color: oklch(85% 0.03 265);
 	--accent-color: oklch(95% 0.03 265);
 	--canvas-side: min(300px, 80vw);
@@ -15,7 +16,7 @@ body {
 	font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
 	font-weight: 400;
 	color: var(--light-color);
-	background-color: oklch(21% 0.03 265);
+	background-color: var(--dark-color);
 
 	overflow-y: auto;
 	scrollbar-gutter: stable both-edges;
@@ -103,4 +104,5 @@ button {
 	color: inherit;
 	padding: 0;
 	margin: 0;
+	cursor: pointer;
 }
