@@ -47,9 +47,9 @@
 
 		dotGeometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));
 
-		trailPositions.push(x, y, z);
-		trailPositions = trailPositions.slice(-trailLength * 3);
-		const tempColors = colors.slice(-trailPositions.length * 3);
+		trailPositions.unshift(x, y, z);
+		trailPositions = trailPositions.slice(0, trailLength * 3);
+		const tempColors = colors.slice(0, trailPositions.length * 3);
 
 		geometry.setAttribute('position', new Float32BufferAttribute(trailPositions, 3));
 		geometry.setAttribute('color', new Float32BufferAttribute(tempColors, 3));

@@ -28,7 +28,7 @@ export const trailColors = ({
 			(rgb[1] * coefficient) / 255,
 			(rgb[2] * coefficient) / 255
 		);
-		colors.push(color.r, color.g, color.b);
+		colors.unshift(color.r, color.g, color.b);
 	}
 
 	return colors;
