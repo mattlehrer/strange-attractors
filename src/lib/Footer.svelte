@@ -25,10 +25,9 @@
 <style>
 	footer {
 		width: max(70%, 300px);
-		margin: auto auto 1rem auto;
+		margin: auto auto 0 auto;
 		max-width: 1200px;
 		padding: 5rem 2rem 2rem;
-		gap: 1rem;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-around;
