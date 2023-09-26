@@ -1,4 +1,5 @@
 const forms = require('@tailwindcss/forms');
+const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config}*/
 const config = {
@@ -8,7 +9,22 @@ const config = {
 		extend: {},
 	},
 
-	plugins: [forms],
+	plugins: [
+		forms,
+		plugin(function ({ addVariant, matchUtilities, theme }) {
+			addVariant('hocus', ['&:hover', '&:focus']);
+			// Square utility
+			matchUtilities(
+				{
+					square: (value) => ({
+						width: value,
+						height: value,
+					}),
+				},
+				{ values: theme('spacing') },
+			);
+		}),
+	],
 };
 
 module.exports = config;
