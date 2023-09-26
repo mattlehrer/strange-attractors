@@ -32,7 +32,7 @@
 	}
 </script>
 
-<T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={1}>
+<T.PerspectiveCamera makeDefault position={[-150, 150, 150]} fov={1.5}>
 	<OrbitControls
 		autoRotate={$controls.autorotate}
 		enableZoom={true}
