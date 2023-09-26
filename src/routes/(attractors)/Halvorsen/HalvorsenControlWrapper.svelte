@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Halvorsen from '$lib/Halvorsen.svelte';
 
-	export let name: string;
 	export let trailLength = 2_500;
 	export let dotColor = '#ff2211';
 	export let speed: number = 50;
