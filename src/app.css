@@ -70,6 +70,10 @@ a:hover {
 	color: var(--accent-color);
 }
 
+nav a {
+	text-decoration: none;
+}
+
 main {
 	max-width: 1200px;
 	width: 100%;

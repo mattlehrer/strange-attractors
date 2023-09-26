@@ -1,32 +1,39 @@
+<script lang="ts">
+	import { page } from '$app/stores';
+</script>
+
 <header>
 	<nav>
-		<a href="/">Strange Attractors</a>
+		<a class="home" href="/">Strange Attractors</a>
+		{#if $page.route.id?.slice('/(attractors)/'.length)}
+			<div class="name">
+				The {$page.route.id?.slice('/(attractors)/'.length)} Attractor
+			</div>
+		{/if}
 	</nav>
 </header>
 
 <style>
-	header {
+	nav {
 		width: 100%;
-		max-width: 1200px;
 		margin: 1rem auto;
 		padding: 1rem min(75px, 10%);
 		display: flex;
+		flex-direction: column;
 		justify-content: space-between;
 		align-items: center;
 		opacity: 0.9;
+		color: inherit;
+		font-size: clamp(1.25rem, 3.5vw, 3rem);
+	}
 
-		& a {
-			color: inherit;
-			text-decoration: none;
-			font-size: 1.75rem;
+	.home {
+		max-width: 60%;
+		view-transition-name: home;
+	}
 
-			@media screen and (min-width: 400px) {
-				font-size: 2.5rem;
-			}
-
-			@media screen and (min-width: 768px) {
-				font-size: 3rem;
-			}
-		}
+	.name {
+		font-size: 130%;
+		text-align: center;
 	}
 </style>
