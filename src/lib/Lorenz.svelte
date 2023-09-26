@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { T, useFrame } from '@threlte/core';
-	import { BufferGeometry, Color, Float32BufferAttribute, PointsMaterial } from 'three';
+	import { BufferGeometry, Float32BufferAttribute, PointsMaterial } from 'three';
 	import { hexToRgb, trailColors } from './utils';
 
-	export let color = '#fff';
+	export let color = '#ffffff';
 	export let speed = 75;
 	export let trailLength = 10;
 	export let init = [
@@ -14,7 +14,6 @@
 	let [x, y, z] = init;
 
 	const dotGeometry = new BufferGeometry();
-
 	const dotMaterial = new PointsMaterial({
 		sizeAttenuation: false
 	});
@@ -24,7 +23,6 @@
 		sizeAttenuation: false
 	});
 
-	// let opacity = 1;
 	let size = 5;
 	$: rgb = hexToRgb(color);
 

@@ -1,4 +1,4 @@
-import { Color, SRGBColorSpace } from 'three';
+import { Color } from 'three';
 
 export const hexToRgb = (hex: string) => {
 	return hex
@@ -19,7 +19,7 @@ export const trailColors = ({
 }) => {
 	const colors: Array<number> = [];
 	for (let i = 0; i < trailLength; i++) {
-		const coefficient = !((trailLength - i) % Math.max(Math.floor(1000 * dt), 10))
+		const coefficient = !((trailLength - i) % Math.max(Math.floor(trailLength * dt), 10))
 			? i / trailLength
 			: i / trailLength / 4;
 		const color = new Color();

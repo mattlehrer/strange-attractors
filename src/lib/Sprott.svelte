@@ -7,7 +7,7 @@
 		Color,
 		type NormalBufferAttributes
 	} from 'three';
-	import { hexToRgb } from './utils';
+	import { hexToRgb, trailColors } from './utils';
 
 	export let color = '#fff';
 	export let speed = 150;
@@ -16,12 +16,15 @@
 	let [x, y, z] = init;
 
 	const dotGeometry = new BufferGeometry();
-
 	const dotMaterial = new PointsMaterial({
 		sizeAttenuation: false
 	});
 
-	// let opacity = 1;
+	const geometry = new BufferGeometry();
+	const material = new PointsMaterial({
+		sizeAttenuation: false
+	});
+
 	let size = 5;
 	$: rgb = hexToRgb(color);
 
@@ -29,7 +32,9 @@
 	let b = 1.79;
 	$: dt = speed ? speed / 2000 : 0.025;
 
-	let trail: [BufferGeometry<NormalBufferAttributes>, PointsMaterial][] = [];
+	let trailPositions: Array<number> = [];
+	let colors: Array<number> = [];
+	$: colors = trailColors({ trailLength, rgb, dt });
 
 	useFrame(() => {
 		const dx = (y + a * x * y + x * z) * dt;
@@ -39,16 +44,14 @@
 		y = y + dy;
 		z = z + dz;
 
-		const geometry = new BufferGeometry();
-		geometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));
-		const material = new PointsMaterial({
-			sizeAttenuation: false
-		});
-		trail.push([geometry, material]);
-		// Is there a way to alternate instead of slicing?
-		trail = trail.slice(-trailLength);
-
 		dotGeometry.setAttribute('position', new Float32BufferAttribute([x, y, z], 3));
+
+		trailPositions.unshift(x, y, z);
+		trailPositions = trailPositions.slice(0, trailLength * 3);
+		const tempColors = colors.slice(0, trailPositions.length * 3);
+
+		geometry.setAttribute('position', new Float32BufferAttribute(trailPositions, 3));
+		geometry.setAttribute('color', new Float32BufferAttribute(tempColors, 3));
 	});
 </script>
 
@@ -57,24 +60,12 @@
 	<T is={dotMaterial} {size} color={new Color(color)} />
 </T.Points>
 
-{#each trail as [geometry, material], i}
-	{@const r =
-		(rgb ? rgb[0] / 255 : 1) *
-		(!((trail.length - i) % Math.max(Math.floor(1000 * dt), 10))
-			? i / trail.length
-			: i / trail.length / 4)}
-	{@const g =
-		(rgb ? rgb[1] / 255 : 1) *
-		(!((trail.length - i) % Math.max(Math.floor(1000 * dt), 10))
-			? i / trail.length
-			: i / trail.length / 4)}
-	{@const b =
-		(rgb ? rgb[2] / 255 : 1) *
-		(!((trail.length - i) % Math.max(Math.floor(1000 * dt), 10))
-			? i / trail.length
-			: i / trail.length / 4)}
-	<T.Points>
-		<T is={geometry} />
-		<T is={material} size={2} color={new Color(r, g, b)} />
-	</T.Points>
-{/each}
+<T.Points>
+	<T is={dotGeometry} />
+	<T is={dotMaterial} {size} {color} />
+</T.Points>
+
+<T.Points>
+	<T is={geometry} />
+	<T is={material} vertexColors={true} size={2} />
+</T.Points>
