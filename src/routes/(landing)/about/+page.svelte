@@ -42,3 +42,10 @@
 	</p>
 	<p>I hope you find it as beautiful, mesmerizing, and meditative to look at as I do.</p>
 </main>
+
+<style>
+	main {
+		max-width: 70ch;
+		padding: 2rem;
+	}
+</style>
