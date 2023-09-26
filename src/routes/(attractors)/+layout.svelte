@@ -5,6 +5,9 @@
 	import { SlidersHorizontal, X } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 	import { createPopover, melt } from '@melt-ui/svelte';
+	import { page } from '$app/stores';
+	import { controls } from './positions';
+	import type { System } from '$lib/attractors';
 
 	$: innerWidth = 0;
 	$: controlsSize = Math.min(Math.max(innerWidth / 20, 20), 32);
@@ -17,6 +20,23 @@
 		arrowSize: 0,
 		forceVisible: true,
 	});
+
+	function addDot() {
+		const attractor = $page.route.id?.slice('/(attractors)/'.length) as System | undefined;
+
+		if (!attractor) return console.error('No attractor found');
+
+		const newDot = {
+			name: `Dot ${$controls[attractor].dots.length + 1}`,
+			dotColor: '#fff5f5',
+			x: Math.random(),
+			y: Math.random(),
+			z: Math.random(),
+			speed: 50,
+			trailLength: 200,
+		};
+		$controls[attractor].dots = [...$controls[attractor].dots, newDot];
+	}
 </script>
 
 <svelte:head>
@@ -37,29 +57,27 @@
 	{#if innerWidth > 0}
 		<button type="button" in:fade class="controls" use:melt={$trigger}>
 			<SlidersHorizontal size={controlsSize} />
-			<span class="sr-only">Open Popover</span>
+			<span class="sr-only">Open Controls</span>
 		</button>
 	{/if}
 	{#if $open}
 		<div use:melt={$content} transition:fade={{ duration: 100 }} class="content">
 			<div use:melt={$arrow} />
 			<div class="flex flex-col gap-2.5">
-				<p>Dimensions</p>
+				<button
+					type="button"
+					class="mx-auto max-w-max border px-4 py-2 border-slate-400 rounded-md"
+					on:click={addDot}
+				>
+					Add dot
+				</button>
 				<fieldset>
 					<label for="width">Width</label>
 					<input type="number" id="width" class="input" placeholder="Width" />
 				</fieldset>
 				<fieldset>
-					<label for="height">Height</label>
-					<input type="number" id="height" class="input" placeholder="Height" />
-				</fieldset>
-				<fieldset>
-					<label for="depth">Depth</label>
-					<input type="number" id="depth" class="input" placeholder="Depth" />
-				</fieldset>
-				<fieldset>
-					<label for="weight">Weight</label>
-					<input type="number" id="weight" class="input" placeholder="Weight" />
+					<label for="color">Color</label>
+					<input type="color" id="color" class="input" />
 				</fieldset>
 			</div>
 			<button class="close" use:melt={$close}>
@@ -114,10 +132,6 @@
 		@apply w-[75px] text-sm text-neutral-700;
 	}
 
-	p {
-		@apply mb-2 font-medium text-neutral-900;
-	}
-
 	.input {
 		@apply flex h-8 w-full rounded-md border border-blue-800 bg-transparent px-2.5 text-sm;
 		@apply ring-offset-blue-300 focus-visible:ring;
@@ -134,6 +148,10 @@
 	}
 
 	.content {
-		@apply z-10 w-60 rounded-[4px] bg-white p-5 shadow-sm;
+		@apply z-10 w-60 rounded-[4px] bg-white p-5 shadow-sm opacity-95;
+	}
+
+	.content button {
+		color: var(--dark-color);
 	}
 </style>
