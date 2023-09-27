@@ -6,9 +6,9 @@
 	<nav>
 		<a class="home" href="/">Strange Attractors</a>
 		{#if $page.route.id?.startsWith('/(attractors)/')}
-			<div class="name">
+			<h1 class="name">
 				The {$page.route.id?.slice('/(attractors)/'.length)} Attractor
-			</div>
+			</h1>
 		{/if}
 	</nav>
 </header>

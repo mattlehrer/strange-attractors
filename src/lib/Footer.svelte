@@ -18,6 +18,7 @@
 					clip-rule="evenodd"
 				/>
 			</svg>
+			<span class="sr-only">Github</span>
 		</a>
 	</div>
 </footer>
