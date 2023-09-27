@@ -12,6 +12,7 @@ export const settings: Record<
 		zoom: number;
 		offsetX: number;
 		offsetY: number;
+		initScale: number;
 	}
 > = {
 	Lorenz: {
@@ -23,7 +24,8 @@ export const settings: Record<
 		speed: 75,
 		zoom: 1,
 		offsetX: 50,
-		offsetY: 30
+		offsetY: 30,
+		initScale: 8,
 	},
 	Sprott: {
 		near: 0.01,
@@ -34,7 +36,8 @@ export const settings: Record<
 		speed: 100,
 		zoom: 1.5,
 		offsetX: 0,
-		offsetY: 0
+		offsetY: 0,
+		initScale: 1,
 	},
 	Halvorsen: {
 		near: 0.01,
@@ -45,6 +48,7 @@ export const settings: Record<
 		speed: 50,
 		zoom: 1,
 		offsetX: -10,
-		offsetY: 0
-	}
+		offsetY: 0,
+		initScale: 1,
+	},
 };

@@ -13,7 +13,7 @@
 	} from '@melt-ui/svelte';
 	import { page } from '$app/stores';
 	import { positions, isPaused, isAutoRotate } from '$lib/state';
-	import type { System } from '$lib/attractors';
+	import { settings, type System } from '$lib/attractors';
 	import { uid } from 'uid';
 
 	$: innerWidth = 0;
@@ -37,11 +37,11 @@
 		const newDot = {
 			count: 1 + ($positions[attractor][$positions[attractor].length - 1]?.count || 0),
 			dotColor: '#fff5f5',
-			x: Math.random(),
-			y: Math.random(),
-			z: Math.random(),
+			x: Math.random() * settings[attractor].initScale,
+			y: Math.random() * settings[attractor].initScale,
+			z: Math.random() * settings[attractor].initScale,
 			speed: 50,
-			trailLength: 200,
+			trailLength: 1_000,
 			id: uid(),
 		};
 		$positions[attractor] = [...$positions[attractor], newDot];
@@ -70,9 +70,7 @@
 	const {
 		elements: { content: accordionContent, item: accordionItem, trigger: accordionTrigger },
 		helpers: { isSelected: accordionItemIsSelected },
-	} = createAccordion({
-		defaultValue: 'item-1',
-	});
+	} = createAccordion();
 </script>
 
 <svelte:head>

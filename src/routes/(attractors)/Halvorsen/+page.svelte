@@ -1,5 +1,42 @@
 <script lang="ts">
-	import HalvorsenWrapper from './HalvorsenWrapper.svelte';
+	import { T } from '@threlte/core';
+	import { OrbitControls } from '@threlte/extras';
+	import Halvorsen from '$lib/Halvorsen.svelte';
+	import { positions, isAutoRotate, isPaused } from '$lib/state';
+	import { settings as allSettings } from '$lib/attractors';
+
+	const settings = allSettings.Halvorsen;
 </script>
 
-<HalvorsenWrapper />
+<T.PerspectiveCamera
+	makeDefault
+	position={settings.position}
+	fov={settings.fov}
+	view={{
+		enabled: true,
+		fullWidth: 250,
+		fullHeight: 250,
+		offsetX: settings.offsetX,
+		offsetY: settings.offsetY,
+		width: 250,
+		height: 250,
+	}}
+>
+	<OrbitControls
+		autoRotate={$isAutoRotate}
+		enableZoom={true}
+		enableDamping
+		autoRotateSpeed={0.5}
+		target={settings.target}
+	/>
+</T.PerspectiveCamera>
+
+{#each $positions.Halvorsen as dot (dot.id)}
+	<Halvorsen
+		color={dot.dotColor}
+		speed={dot.speed}
+		init={[dot.x, dot.y, dot.z]}
+		trailLength={dot.trailLength}
+		isPaused={$isPaused}
+	/>
+{/each}
