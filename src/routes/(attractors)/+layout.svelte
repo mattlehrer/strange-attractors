@@ -3,8 +3,14 @@
 	import Header from '$lib/Header.svelte';
 	import { Canvas } from '@threlte/core';
 	import { SlidersHorizontal, X, Play, Pause, Gauge, MoreHorizontal } from 'lucide-svelte';
-	import { fade } from 'svelte/transition';
-	import { createPopover, createSwitch, createSeparator, melt } from '@melt-ui/svelte';
+	import { fade, slide } from 'svelte/transition';
+	import {
+		createAccordion,
+		createPopover,
+		createSwitch,
+		createSeparator,
+		melt,
+	} from '@melt-ui/svelte';
 	import { page } from '$app/stores';
 	import { positions, isPaused, isAutoRotate } from '$lib/state';
 	import type { System } from '$lib/attractors';
@@ -17,7 +23,7 @@
 	$: attractor = $page.route.id?.slice('/(attractors)/'.length) as System;
 
 	const {
-		elements: { trigger, content, arrow, close },
+		elements: { trigger: popoverTrigger, content: popoverContent, arrow, close },
 		states: { open },
 	} = createPopover({
 		positioning: { placement: 'bottom-end' },
@@ -55,6 +61,18 @@
 	const {
 		elements: { root: horizontal },
 	} = createSeparator({});
+	const {
+		elements: { root: vertical },
+	} = createSeparator({
+		orientation: 'vertical',
+	});
+
+	const {
+		elements: { content: accordionContent, item: accordionItem, trigger: accordionTrigger },
+		helpers: { isSelected: accordionItemIsSelected },
+	} = createAccordion({
+		defaultValue: 'item-1',
+	});
 </script>
 
 <svelte:head>
@@ -80,7 +98,7 @@
 					{/if}
 				</button>
 			{/if}
-			<button type="button" in:fade use:melt={$trigger}>
+			<button type="button" in:fade use:melt={$popoverTrigger}>
 				<SlidersHorizontal size={controlsSize} />
 				<span class="sr-only">Open Controls</span>
 			</button>
@@ -88,7 +106,7 @@
 	{/if}
 	{#if $open}
 		<div
-			use:melt={$content}
+			use:melt={$popoverContent}
 			transition:fade={{ duration: 100 }}
 			class="content text-[var(--dark-color)]"
 		>
@@ -116,59 +134,94 @@
 					<input use:melt={$input} />
 				</div>
 				<div class="h-px w-full bg-[var(--dark-color)]" use:melt={$horizontal} />
-				{#each $positions[attractor] as dot (dot.id)}
-					<div class="flex flex-col gap-2">
-						<div class="flex items-center gap-2">
-							<span class="w-3/5">Dot {dot.count}</span>
-							<fieldset>
-								<label class="sr-only" for={`${attractor}-${dot.id}-color`}>Color</label>
-								<input
-									type="color"
-									id={`${attractor}-${dot.id}-color`}
-									class="h-8 bg-white"
-									bind:value={dot.dotColor}
-								/>
-							</fieldset>
-						</div>
-						<fieldset>
-							<label
-								for={`${attractor}-${dot.id}-trailLength`}
-								class="flex items-center gap-2 w-3/5 text-sm"
+			</div>
+			<div class="flex flex-col gap-2">
+				{#each $positions[attractor] as dot, i (dot.id)}
+					<div use:melt={$accordionItem(dot.id)} class="overflow-hidden transition-colors">
+						<h2 class="flex">
+							<button
+								use:melt={$accordionTrigger(dot.id)}
+								class={`flex items-center gap-2 justify-between w-full pt-2 ${
+									i !== 0 ? 'border-t border-t-neutral-300' : ''
+								}`}
 							>
-								<MoreHorizontal class="opacity-80" />
-								Trail Length</label
-							>
-							<input
-								type="number"
-								id={`${attractor}-${dot.id}-trailLength`}
-								class="input"
-								placeholder="200"
-								bind:value={dot.trailLength}
-							/>
-						</fieldset>
-						<fieldset>
-							<label
-								for={`${attractor}-${dot.id}-speed`}
-								class="flex items-center gap-2 w-3/5 text-sm"
-							>
-								<Gauge class="opacity-80" />
-								Speed</label
-							>
-							<input
-								type="number"
-								id={`${attractor}-${dot.id}-speed`}
-								class="input"
-								placeholder="200"
-								bind:value={dot.speed}
-							/>
-						</fieldset>
-						<button
-							type="button"
-							class="mt-1 mx-auto max-w-max border px-3 py-1 text-sm border-red-400 rounded-md hover:bg-red-800 hover:text-slate-100 hover:border-red-800"
-							on:click={() => removeDot(dot.id)}
-						>
-							Remove Dot {dot.count}
-						</button>
+								{#if !$accordionItemIsSelected(dot.id)}
+									Dot {dot.count}
+									<div use:melt={$vertical} class="h-5 w-px bg-slate-900" />
+									<div class="flex gap-1.5">
+										<MoreHorizontal class="opacity-80" />
+										{dot.trailLength}
+									</div>
+									<div use:melt={$vertical} class="h-5 w-px bg-slate-900" />
+									<div class="flex gap-1.5">
+										<Gauge class="opacity-80" />
+										{dot.speed}
+									</div>
+									<div use:melt={$vertical} class="h-5 w-px bg-slate-900" />
+									<div
+										style="background-color: {dot.dotColor};"
+										class="h-8 w-8 border border-slate-500"
+									></div>
+								{/if}
+							</button>
+						</h2>
+						{#if $accordionItemIsSelected(dot.id)}
+							<div use:melt={$accordionContent(dot.id)} transition:slide>
+								<div class="flex flex-col gap-2">
+									<div class="flex items-center gap-2">
+										<span class="w-3/5">Dot {dot.count}</span>
+										<fieldset>
+											<label class="sr-only" for={`${attractor}-${dot.id}-color`}>Color</label>
+											<input
+												type="color"
+												id={`${attractor}-${dot.id}-color`}
+												class="h-8 bg-white"
+												bind:value={dot.dotColor}
+											/>
+										</fieldset>
+									</div>
+									<fieldset>
+										<label
+											for={`${attractor}-${dot.id}-trailLength`}
+											class="flex items-center gap-2 w-3/5 text-sm"
+										>
+											<MoreHorizontal class="opacity-80" />
+											Trail Length</label
+										>
+										<input
+											type="number"
+											id={`${attractor}-${dot.id}-trailLength`}
+											class="input"
+											placeholder="200"
+											bind:value={dot.trailLength}
+										/>
+									</fieldset>
+									<fieldset>
+										<label
+											for={`${attractor}-${dot.id}-speed`}
+											class="flex items-center gap-2 w-3/5 text-sm"
+										>
+											<Gauge class="opacity-80" />
+											Speed</label
+										>
+										<input
+											type="number"
+											id={`${attractor}-${dot.id}-speed`}
+											class="input"
+											placeholder="200"
+											bind:value={dot.speed}
+										/>
+									</fieldset>
+									<button
+										type="button"
+										class="mt-1 mx-auto max-w-max border px-3 py-1 text-sm border-red-400 rounded-md hover:bg-red-800 hover:text-slate-100 hover:border-red-800"
+										on:click={() => removeDot(dot.id)}
+									>
+										Remove Dot {dot.count}
+									</button>
+								</div>
+							</div>
+						{/if}
 					</div>
 				{/each}
 			</div>
@@ -239,8 +292,9 @@
 	}
 
 	.content {
-		@apply z-10 w-60 rounded-[4px] bg-white p-5 shadow-sm opacity-95;
-		overflow-y: scroll;
+		@apply z-10 w-80 rounded-[4px] bg-white p-5 shadow-sm opacity-95;
+		overflow-y: auto;
+		scrollbar-gutter: stable both-edges;
 		max-height: 80vh;
 	}
 
