@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { T, useFrame } from '@threlte/core';
-	import {
-		BufferGeometry,
-		Float32BufferAttribute,
-		PointsMaterial,
-		Color,
-		type NormalBufferAttributes
-	} from 'three';
-	import { hexToRgb, trailColors } from './utils';
+	import { BufferGeometry, Float32BufferAttribute, PointsMaterial } from 'three';
+	import { hexToRgb, trailColors } from '$lib/utils';
 
+	export let isPaused = false;
 	export let color = '#fff';
 	export let speed = 150;
 	export let trailLength = 500;
@@ -17,12 +12,12 @@
 
 	const dotGeometry = new BufferGeometry();
 	const dotMaterial = new PointsMaterial({
-		sizeAttenuation: false
+		sizeAttenuation: false,
 	});
 
 	const geometry = new BufferGeometry();
 	const material = new PointsMaterial({
-		sizeAttenuation: false
+		sizeAttenuation: false,
 	});
 
 	let size = 5;
@@ -37,6 +32,7 @@
 	$: colors = trailColors({ trailLength, rgb, dt });
 
 	useFrame(() => {
+		if (isPaused) return;
 		const dx = (y + a * x * y + x * z) * dt;
 		const dy = (1 - b * x ** 2 + y * z) * dt;
 		const dz = (x - x ** 2 - y ** 2) * dt;
@@ -54,11 +50,6 @@
 		geometry.setAttribute('color', new Float32BufferAttribute(tempColors, 3));
 	});
 </script>
-
-<T.Points>
-	<T is={dotGeometry} />
-	<T is={dotMaterial} {size} color={new Color(color)} />
-</T.Points>
 
 <T.Points>
 	<T is={dotGeometry} />

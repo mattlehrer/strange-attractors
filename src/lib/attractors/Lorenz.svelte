@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { T, useFrame } from '@threlte/core';
 	import { BufferGeometry, Float32BufferAttribute, PointsMaterial } from 'three';
-	import { hexToRgb, trailColors } from './utils';
+	import { hexToRgb, trailColors } from '$lib/utils';
 
 	export let isPaused = false;
-	export let color = '#fff';
-	export let speed = 50;
-	export let trailLength = 500;
+	export let color = '#ffffff';
+	export let speed = 75;
+	export let trailLength = 10;
 	export let init = [Math.random(), Math.random(), Math.random()];
 	let [x, y, z] = init;
 
@@ -23,8 +23,10 @@
 	let size = 5;
 	$: rgb = hexToRgb(color);
 
-	let a = 1.89;
-	$: dt = speed ? (10 * Math.log(speed)) / 4000 : 0.025;
+	let a = 10;
+	let b = 28;
+	let c = 8.0 / 3.0;
+	$: dt = speed ? speed / 5000 : 0.01;
 
 	let trailPositions: Array<number> = [];
 	let colors: Array<number> = [];
@@ -32,9 +34,9 @@
 
 	useFrame(() => {
 		if (isPaused) return;
-		const dx = (-a * x - 4 * y - 4 * z - y ** 2) * dt;
-		const dy = (-a * y - 4 * z - 4 * x - z ** 2) * dt;
-		const dz = (-a * z - 4 * x - 4 * y - x ** 2) * dt;
+		const dx = a * (y - x) * dt;
+		const dy = (x * (b - z) - y) * dt;
+		const dz = (x * y - c * z) * dt;
 		x = x + dx;
 		y = y + dy;
 		z = z + dz;

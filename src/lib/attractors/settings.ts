@@ -17,14 +17,14 @@ export const settings: Record<
 > = {
 	Lorenz: {
 		near: 0.01,
-		fov: 14,
-		position: [-200, 400, 200],
+		fov: 23,
+		position: [-150, 150, 150],
 		target: [0, 0, 30],
 		trailLength: 100,
 		speed: 75,
 		zoom: 1,
-		offsetX: 50,
-		offsetY: 30,
+		offsetX: 25,
+		offsetY: 5,
 		initScale: 8,
 	},
 	Sprott: {

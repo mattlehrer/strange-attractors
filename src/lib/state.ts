@@ -1,4 +1,4 @@
-import type { System } from '$lib/attractors';
+import type { System } from '$lib/attractors/settings';
 import { writable } from 'svelte/store';
 import { uid } from 'uid';
 

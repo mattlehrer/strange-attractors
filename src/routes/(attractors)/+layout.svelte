@@ -13,7 +13,7 @@
 	} from '@melt-ui/svelte';
 	import { page } from '$app/stores';
 	import { positions, isPaused, isAutoRotate } from '$lib/state';
-	import { settings, type System } from '$lib/attractors';
+	import { settings, type System } from '$lib/attractors/settings';
 	import { uid } from 'uid';
 
 	$: innerWidth = 0;

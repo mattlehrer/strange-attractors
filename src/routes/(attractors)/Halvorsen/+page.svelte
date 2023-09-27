@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { T } from '@threlte/core';
 	import { OrbitControls } from '@threlte/extras';
-	import Halvorsen from '$lib/Halvorsen.svelte';
+	import Halvorsen from '$lib/attractors/Halvorsen.svelte';
 	import { positions, isAutoRotate, isPaused } from '$lib/state';
-	import { settings as allSettings } from '$lib/attractors';
+	import { settings as allSettings } from '$lib/attractors/settings';
 
 	const settings = allSettings.Halvorsen;
 </script>

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { T } from '@threlte/core';
 	import { OrbitControls } from '@threlte/extras';
-	import Lorenz from './Lorenz.svelte';
-	import Sprott from './Sprott.svelte';
-	import Halvorsen from './Halvorsen.svelte';
+	import Lorenz from '$lib/attractors/Lorenz.svelte';
+	import Sprott from '$lib/attractors/Sprott.svelte';
+	import Halvorsen from '$lib/attractors/Halvorsen.svelte';
 	import { writable } from 'svelte/store';
-	import { settings, type System } from './attractors';
+	import { settings, type System } from '$lib/attractors/settings';
 
 	export let type: System = 'Lorenz';
 
@@ -24,7 +24,7 @@
 		offsetX: settings[type].offsetX,
 		offsetY: settings[type].offsetY,
 		width: 250,
-		height: 250
+		height: 250,
 	}}
 >
 	<OrbitControls

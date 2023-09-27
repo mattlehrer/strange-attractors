@@ -1,44 +1,40 @@
 <script lang="ts">
 	import { T, useFrame } from '@threlte/core';
 	import { BufferGeometry, Float32BufferAttribute, PointsMaterial } from 'three';
-	import { hexToRgb, trailColors } from './utils';
+	import { hexToRgb, trailColors } from '$lib/utils';
 
-	export let color = '#ffffff';
-	export let speed = 75;
-	export let trailLength = 10;
-	export let init = [
-		Number(Math.random().toFixed(10)),
-		Number(Math.random().toFixed(10)),
-		Number(Math.random().toFixed(10))
-	];
+	export let isPaused = false;
+	export let color = '#fff';
+	export let speed = 50;
+	export let trailLength = 500;
+	export let init = [Math.random(), Math.random(), Math.random()];
 	let [x, y, z] = init;
 
 	const dotGeometry = new BufferGeometry();
 	const dotMaterial = new PointsMaterial({
-		sizeAttenuation: false
+		sizeAttenuation: false,
 	});
 
 	const geometry = new BufferGeometry();
 	const material = new PointsMaterial({
-		sizeAttenuation: false
+		sizeAttenuation: false,
 	});
 
 	let size = 5;
 	$: rgb = hexToRgb(color);
 
-	let a = 10;
-	let b = 28;
-	let c = 8.0 / 3.0;
-	$: dt = speed ? speed / 5000 : 0.01;
+	let a = 1.89;
+	$: dt = speed ? (10 * Math.log(speed)) / 4000 : 0.025;
 
 	let trailPositions: Array<number> = [];
 	let colors: Array<number> = [];
 	$: colors = trailColors({ trailLength, rgb, dt });
 
 	useFrame(() => {
-		const dx = a * (y - x) * dt;
-		const dy = (x * (b - z) - y) * dt;
-		const dz = (x * y - c * z) * dt;
+		if (isPaused) return;
+		const dx = (-a * x - 4 * y - 4 * z - y ** 2) * dt;
+		const dy = (-a * y - 4 * z - 4 * x - z ** 2) * dt;
+		const dz = (-a * z - 4 * x - 4 * y - x ** 2) * dt;
 		x = x + dx;
 		y = y + dy;
 		z = z + dz;
