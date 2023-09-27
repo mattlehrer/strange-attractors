@@ -4,19 +4,20 @@
 
 <header>
 	<nav>
-		<a class="home" href="/">Strange Attractors</a>
 		{#if $page.route.id?.startsWith('/(attractors)/')}
+			<a class="home" href="/">Strange Attractors</a>
 			<h1 class="name">
 				The {$page.route.id?.slice('/(attractors)/'.length)} Attractor
+			</h1>
+		{:else}
+			<h1>
+				<a class="home font-bold" href="/">Strange Attractors</a>
 			</h1>
 		{/if}
 	</nav>
 </header>
 
 <style>
-	header {
-		margin-top: 1.25rem;
-	}
 	nav {
 		width: 100%;
 		margin: var(--header-spacer) auto;
@@ -39,6 +40,10 @@
 		header {
 			margin-top: 0;
 		}
+	}
+
+	h1 {
+		view-transition-name: title;
 	}
 
 	.home {
