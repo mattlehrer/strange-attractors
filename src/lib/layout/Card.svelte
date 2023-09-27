@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Canvas } from '@threlte/core';
-	import Scene from './Scene.svelte';
-	import type { System } from './attractors';
+	import Scene from '../Scene.svelte';
+	import type { System } from '../attractors';
 
 	export let type: System;
 </script>

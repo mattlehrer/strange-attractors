@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Card from '$lib/Card.svelte';
+	import Card from '$lib/layout/Card.svelte';
 	import animatedDetails from 'svelte-animated-details';
 </script>
 

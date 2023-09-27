@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Footer from '$lib/Footer.svelte';
-	import Header from '$lib/Header.svelte';
+	import Footer from '$lib/layout/Footer.svelte';
+	import Header from '$lib/layout/Header.svelte';
 	import { Canvas } from '@threlte/core';
 	import { SlidersHorizontal, X, Play, Pause, Gauge, MoreHorizontal } from 'lucide-svelte';
 	import { fade, slide } from 'svelte/transition';
