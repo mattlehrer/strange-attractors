@@ -10,7 +10,7 @@
 	import type { System } from '$lib/attractors';
 
 	$: innerWidth = 0;
-	$: controlsSize = Math.min(Math.max(innerWidth / 20, 20), 32);
+	$: controlsSize = Math.min(Math.max(innerWidth / 20, 36), 50);
 
 	let attractor: System;
 	$: attractor = $page.route.id?.slice('/(attractors)/'.length) as System;
@@ -56,7 +56,7 @@
 		<Header />
 	</div>
 	{#if innerWidth > 0}
-		<div class="flex controls gap-4">
+		<div class="flex controls gap-6 mt-1">
 			{#if attractor}
 				<button type="button" on:click={() => ($isPaused = !$isPaused)}>
 					{#if $isPaused}
@@ -135,8 +135,9 @@
 		position: absolute;
 		top: var(--header-spacer);
 		right: var(--header-spacer);
+		opacity: 0.8;
 	}
-	.controls:last-child {
+	.controls button {
 		@apply focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-2;
 	}
 
