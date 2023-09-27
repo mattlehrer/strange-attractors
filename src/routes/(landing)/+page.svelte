@@ -35,7 +35,7 @@
 			</p>
 		</div>
 	</details>
-	<div class="attractors">
+	<div class="attractors justify-center sm:justify-normal">
 		<Card type={'Lorenz'} />
 		<Card type={'Sprott'} />
 		<Card type={'Halvorsen'} />
