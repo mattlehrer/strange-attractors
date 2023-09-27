@@ -41,7 +41,7 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="A 3D Lorenz Attractor built with Svelte and Three.js" />
+	<meta name="description" content={`A 3D ${attractor} Attractor built with Svelte and Three.js`} />
 	<!-- disable zoom -->
 	<meta
 		name="viewport"
