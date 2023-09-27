@@ -114,6 +114,11 @@
 					type="button"
 					class="mx-auto max-w-max border px-4 py-2 border-slate-400 rounded-md hover:bg-blue-800 hover:text-slate-100"
 					on:click={addDot}
+					on:dblclick={() => {
+						// prevent zoom when tapping fast on mobile
+						addDot();
+						addDot();
+					}}
 				>
 					Add dot
 				</button>
