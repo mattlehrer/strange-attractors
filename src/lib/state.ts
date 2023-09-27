@@ -1,28 +1,8 @@
 import type { System } from '$lib/attractors';
 import { writable } from 'svelte/store';
 
-export const controls = writable<
-	Record<
-		System,
-		{
-			autoRotate: boolean;
-			isPaused: boolean;
-		}
-	>
->({
-	Halvorsen: {
-		autoRotate: true,
-		isPaused: false,
-	},
-	Sprott: {
-		autoRotate: true,
-		isPaused: false,
-	},
-	Lorenz: {
-		autoRotate: true,
-		isPaused: false,
-	},
-});
+export const isPaused = writable<boolean>(false);
+export const isAutoRotate = writable<boolean>(true);
 
 export const positions = writable<
 	Record<

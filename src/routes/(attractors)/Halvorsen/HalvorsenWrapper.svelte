@@ -2,7 +2,7 @@
 	import { T } from '@threlte/core';
 	import { OrbitControls } from '@threlte/extras';
 	import Halvorsen from '$lib/Halvorsen.svelte';
-	import { controls, positions } from '../state';
+	import { positions, isAutoRotate, isPaused } from '$lib/state';
 </script>
 
 <T.PerspectiveCamera
@@ -20,7 +20,7 @@
 	}}
 >
 	<OrbitControls
-		autoRotate={$controls.Halvorsen.autoRotate}
+		autoRotate={$isAutoRotate}
 		enableZoom={true}
 		enableDamping
 		autoRotateSpeed={0.5}
@@ -36,5 +36,6 @@
 		speed={dot.speed}
 		init={[dot.x, dot.y, dot.z]}
 		trailLength={dot.trailLength}
+		isPaused={$isPaused}
 	/>
 {/each}

@@ -3,6 +3,7 @@
 	import { BufferGeometry, Float32BufferAttribute, PointsMaterial } from 'three';
 	import { hexToRgb, trailColors } from './utils';
 
+	export let isPaused = false;
 	export let color = '#fff';
 	export let speed = 50;
 	export let trailLength = 500;
@@ -11,12 +12,12 @@
 
 	const dotGeometry = new BufferGeometry();
 	const dotMaterial = new PointsMaterial({
-		sizeAttenuation: false
+		sizeAttenuation: false,
 	});
 
 	const geometry = new BufferGeometry();
 	const material = new PointsMaterial({
-		sizeAttenuation: false
+		sizeAttenuation: false,
 	});
 
 	let size = 5;
@@ -30,6 +31,7 @@
 	$: colors = trailColors({ trailLength, rgb, dt });
 
 	useFrame(() => {
+		if (isPaused) return;
 		const dx = (-a * x - 4 * y - 4 * z - y ** 2) * dt;
 		const dy = (-a * y - 4 * z - 4 * x - z ** 2) * dt;
 		const dz = (-a * z - 4 * x - 4 * y - x ** 2) * dt;

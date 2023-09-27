@@ -2,15 +2,18 @@
 	import Footer from '$lib/Footer.svelte';
 	import Header from '$lib/Header.svelte';
 	import { Canvas } from '@threlte/core';
-	import { SlidersHorizontal, X } from 'lucide-svelte';
+	import { SlidersHorizontal, X, Play, Pause } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 	import { createPopover, melt } from '@melt-ui/svelte';
 	import { page } from '$app/stores';
-	import { positions } from './state';
+	import { positions, isPaused } from '$lib/state';
 	import type { System } from '$lib/attractors';
 
 	$: innerWidth = 0;
 	$: controlsSize = Math.min(Math.max(innerWidth / 20, 20), 32);
+
+	let attractor: System;
+	$: attractor = $page.route.id?.slice('/(attractors)/'.length) as System;
 
 	const {
 		elements: { trigger, content, arrow, close },
@@ -22,8 +25,6 @@
 	});
 
 	function addDot() {
-		const attractor = $page.route.id?.slice('/(attractors)/'.length) as System | undefined;
-
 		if (!attractor) return console.error('No attractor found');
 
 		const newDot = {
@@ -55,10 +56,23 @@
 		<Header />
 	</div>
 	{#if innerWidth > 0}
-		<button type="button" in:fade class="controls" use:melt={$trigger}>
-			<SlidersHorizontal size={controlsSize} />
-			<span class="sr-only">Open Controls</span>
-		</button>
+		<div class="flex controls gap-4">
+			{#if attractor}
+				<button type="button" on:click={() => ($isPaused = !$isPaused)}>
+					{#if $isPaused}
+						<Play size={controlsSize} />
+						<span class="sr-only">Pause</span>
+					{:else}
+						<Pause size={controlsSize} />
+						<span class="sr-only">Pause</span>
+					{/if}
+				</button>
+			{/if}
+			<button type="button" in:fade use:melt={$trigger}>
+				<SlidersHorizontal size={controlsSize} />
+				<span class="sr-only">Open Controls</span>
+			</button>
+		</div>
 	{/if}
 	{#if $open}
 		<div use:melt={$content} transition:fade={{ duration: 100 }} class="content">
@@ -121,6 +135,8 @@
 		position: absolute;
 		top: var(--header-spacer);
 		right: var(--header-spacer);
+	}
+	.controls:last-child {
 		@apply focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-2;
 	}
 
