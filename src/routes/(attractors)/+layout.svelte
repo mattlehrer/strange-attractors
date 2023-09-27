@@ -243,6 +243,7 @@
 		position: relative;
 		width: 100vw;
 		min-height: 100dvh;
+		height: 100dvh;
 	}
 
 	.header,
