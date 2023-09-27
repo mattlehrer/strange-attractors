@@ -37,7 +37,7 @@ export const positions = writable<
 			count: 1,
 			dotColor: '#fff5f5',
 			x: 0.01,
-			y: 0.0,
+			y: 0.01,
 			z: 0.0,
 			speed: 50,
 			trailLength: 1000,

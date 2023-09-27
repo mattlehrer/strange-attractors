@@ -21,7 +21,8 @@
 		enabled: true,
 		fullWidth: 250,
 		fullHeight: 250,
-		offsetX: settings[type].offsetX,
+		// +15 is a hack because the camera center is different on the landing page grid and its own page
+		offsetX: settings[type].offsetX + 25,
 		offsetY: settings[type].offsetY,
 		width: 250,
 		height: 250,

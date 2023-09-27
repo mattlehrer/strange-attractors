@@ -7,7 +7,7 @@
 	export let color = '#ffffff';
 	export let speed = 75;
 	export let trailLength = 10;
-	export let init = [Math.random(), Math.random(), Math.random()];
+	export let init = [0.01, 0, 0];
 	let [x, y, z] = init;
 
 	const dotGeometry = new BufferGeometry();
