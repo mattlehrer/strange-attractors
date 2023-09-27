@@ -6,7 +6,7 @@
 	import { fade } from 'svelte/transition';
 	import { createPopover, melt } from '@melt-ui/svelte';
 	import { page } from '$app/stores';
-	import { controls } from './positions';
+	import { positions } from './state';
 	import type { System } from '$lib/attractors';
 
 	$: innerWidth = 0;
@@ -27,7 +27,7 @@
 		if (!attractor) return console.error('No attractor found');
 
 		const newDot = {
-			name: `Dot ${$controls[attractor].dots.length + 1}`,
+			name: `Dot ${$positions[attractor].length + 1}`,
 			dotColor: '#fff5f5',
 			x: Math.random(),
 			y: Math.random(),
@@ -35,7 +35,7 @@
 			speed: 50,
 			trailLength: 200,
 		};
-		$controls[attractor].dots = [...$controls[attractor].dots, newDot];
+		$positions[attractor] = [...$positions[attractor], newDot];
 	}
 </script>
 

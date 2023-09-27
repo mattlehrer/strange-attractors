@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { T } from '@threlte/core';
 	import { OrbitControls } from '@threlte/extras';
-	import HalvorsenWrapper from './HalvorsenControlWrapper.svelte';
-	import { controls } from '../positions';
+	import Halvorsen from '$lib/Halvorsen.svelte';
+	import { controls, positions } from '../state';
 </script>
 
 <T.PerspectiveCamera
@@ -20,7 +20,7 @@
 	}}
 >
 	<OrbitControls
-		autoRotate={$controls.Halvorsen.autorotate}
+		autoRotate={$controls.Halvorsen.autoRotate}
 		enableZoom={true}
 		enableDamping
 		autoRotateSpeed={0.5}
@@ -30,11 +30,11 @@
 	/>
 </T.PerspectiveCamera>
 
-{#each $controls.Halvorsen.dots as dot (dot.name)}
-	<HalvorsenWrapper
-		dotColor={dot.dotColor}
-		trailLength={dot.trailLength}
-		init={[dot.x, dot.y, dot.z]}
+{#each $positions.Halvorsen as dot (dot.name)}
+	<Halvorsen
+		color={dot.dotColor}
 		speed={dot.speed}
+		init={[dot.x, dot.y, dot.z]}
+		trailLength={dot.trailLength}
 	/>
 {/each}
