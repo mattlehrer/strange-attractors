@@ -2,12 +2,13 @@
 	import Footer from '$lib/Footer.svelte';
 	import Header from '$lib/Header.svelte';
 	import { Canvas } from '@threlte/core';
-	import { SlidersHorizontal, X, Play, Pause } from 'lucide-svelte';
+	import { SlidersHorizontal, X, Play, Pause, Gauge, MoreHorizontal } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
-	import { createPopover, melt } from '@melt-ui/svelte';
+	import { createPopover, createSwitch, createSeparator, melt } from '@melt-ui/svelte';
 	import { page } from '$app/stores';
-	import { positions, isPaused } from '$lib/state';
+	import { positions, isPaused, isAutoRotate } from '$lib/state';
 	import type { System } from '$lib/attractors';
+	import { uid } from 'uid';
 
 	$: innerWidth = 0;
 	$: controlsSize = Math.min(Math.max(innerWidth / 20, 36), 50);
@@ -28,25 +29,36 @@
 		if (!attractor) return console.error('No attractor found');
 
 		const newDot = {
-			name: `Dot ${$positions[attractor].length + 1}`,
+			count: 1 + ($positions[attractor][$positions[attractor].length - 1]?.count || 0),
 			dotColor: '#fff5f5',
 			x: Math.random(),
 			y: Math.random(),
 			z: Math.random(),
 			speed: 50,
 			trailLength: 200,
+			id: uid(),
 		};
 		$positions[attractor] = [...$positions[attractor], newDot];
 	}
+
+	function removeDot(id: string) {
+		if (!attractor) return console.error('No attractor found');
+		$positions[attractor] = $positions[attractor].filter((d) => d.id !== id);
+	}
+
+	const {
+		elements: { root, input },
+	} = createSwitch({ defaultChecked: $isAutoRotate });
+
+	$: $isAutoRotate = $input.checked;
+
+	const {
+		elements: { root: horizontal },
+	} = createSeparator({});
 </script>
 
 <svelte:head>
 	<meta name="description" content={`A 3D ${attractor} Attractor built with Svelte and Three.js`} />
-	<!-- disable zoom -->
-	<meta
-		name="viewport"
-		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-	/>
 </svelte:head>
 
 <svelte:window bind:innerWidth />
@@ -75,24 +87,90 @@
 		</div>
 	{/if}
 	{#if $open}
-		<div use:melt={$content} transition:fade={{ duration: 100 }} class="content">
+		<div
+			use:melt={$content}
+			transition:fade={{ duration: 100 }}
+			class="content text-[var(--dark-color)]"
+		>
 			<div use:melt={$arrow} />
-			<div class="flex flex-col gap-2.5">
+			<div class="flex flex-col gap-5">
 				<button
 					type="button"
-					class="mx-auto max-w-max border px-4 py-2 border-slate-400 rounded-md"
+					class="mx-auto max-w-max border px-4 py-2 border-slate-400 rounded-md hover:bg-blue-800 hover:text-slate-100"
 					on:click={addDot}
 				>
 					Add dot
 				</button>
-				<fieldset>
-					<label for="width">Width</label>
-					<input type="number" id="width" class="input" placeholder="Width" />
-				</fieldset>
-				<fieldset>
-					<label for="color">Color</label>
-					<input type="color" id="color" class="input" />
-				</fieldset>
+				<div class="switch flex items-center mx-auto max-w-max">
+					<label class="pr-4 leading-none" for="autorotate" id="autorotate-label">
+						Autorotate
+					</label>
+					<button
+						use:melt={$root}
+						class="relative h-6 cursor-default rounded-full bg-blue-950 transition-colors data-[state=checked]:bg-blue-600"
+						id="autorotate"
+						aria-labelledby="autorotate-label"
+					>
+						<span class="thumb block rounded-full bg-white transition" />
+					</button>
+					<input use:melt={$input} />
+				</div>
+				<div class="h-px w-full bg-[var(--dark-color)]" use:melt={$horizontal} />
+				{#each $positions[attractor] as dot (dot.id)}
+					<div class="flex flex-col gap-2">
+						<div class="flex items-center gap-2">
+							<span class="w-3/5">Dot {dot.count}</span>
+							<fieldset>
+								<label class="sr-only" for={`${attractor}-${dot.id}-color`}>Color</label>
+								<input
+									type="color"
+									id={`${attractor}-${dot.id}-color`}
+									class="h-8 bg-white"
+									bind:value={dot.dotColor}
+								/>
+							</fieldset>
+						</div>
+						<fieldset>
+							<label
+								for={`${attractor}-${dot.id}-trailLength`}
+								class="flex items-center gap-2 w-3/5 text-sm"
+							>
+								<MoreHorizontal class="opacity-80" />
+								Trail Length</label
+							>
+							<input
+								type="number"
+								id={`${attractor}-${dot.id}-trailLength`}
+								class="input"
+								placeholder="200"
+								bind:value={dot.trailLength}
+							/>
+						</fieldset>
+						<fieldset>
+							<label
+								for={`${attractor}-${dot.id}-speed`}
+								class="flex items-center gap-2 w-3/5 text-sm"
+							>
+								<Gauge class="opacity-80" />
+								Speed</label
+							>
+							<input
+								type="number"
+								id={`${attractor}-${dot.id}-speed`}
+								class="input"
+								placeholder="200"
+								bind:value={dot.speed}
+							/>
+						</fieldset>
+						<button
+							type="button"
+							class="mt-1 mx-auto max-w-max border px-3 py-1 text-sm border-red-400 rounded-md hover:bg-red-800 hover:text-slate-100 hover:border-red-800"
+							on:click={() => removeDot(dot.id)}
+						>
+							Remove Dot {dot.count}
+						</button>
+					</div>
+				{/each}
 			</div>
 			<button class="close" use:melt={$close}>
 				<X class="square-4" />
@@ -142,11 +220,7 @@
 	}
 
 	fieldset {
-		@apply flex items-center gap-5;
-	}
-
-	label {
-		@apply w-[75px] text-sm text-neutral-700;
+		@apply flex items-center gap-2;
 	}
 
 	.input {
@@ -166,9 +240,24 @@
 
 	.content {
 		@apply z-10 w-60 rounded-[4px] bg-white p-5 shadow-sm opacity-95;
+		overflow-y: scroll;
+		max-height: 80vh;
 	}
 
-	.content button {
-		color: var(--dark-color);
+	.switch button {
+		--w: 2.75rem;
+		--padding: 0.125rem;
+		width: var(--w);
+	}
+
+	.thumb {
+		--size: 1.25rem;
+		width: var(--size);
+		height: var(--size);
+		transform: translateX(var(--padding));
+	}
+
+	:global([data-state='checked']) .thumb {
+		transform: translateX(calc(var(--w) - var(--size) - var(--padding)));
 	}
 </style>

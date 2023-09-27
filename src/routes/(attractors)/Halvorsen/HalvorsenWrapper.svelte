@@ -30,7 +30,7 @@
 	/>
 </T.PerspectiveCamera>
 
-{#each $positions.Halvorsen as dot (dot.name)}
+{#each $positions.Halvorsen as dot (dot.id)}
 	<Halvorsen
 		color={dot.dotColor}
 		speed={dot.speed}
