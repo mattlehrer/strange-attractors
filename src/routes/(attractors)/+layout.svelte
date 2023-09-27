@@ -234,9 +234,11 @@
 		</div>
 	{/if}
 
-	<Canvas useLegacyLights={false}>
-		<slot />
-	</Canvas>
+	<main>
+		<Canvas useLegacyLights={false}>
+			<slot />
+		</Canvas>
+	</main>
 
 	<div class="footer">
 		<Footer />
