@@ -86,7 +86,7 @@
 	{#if innerWidth > 0}
 		<div class="flex controls gap-6 mt-1">
 			{#if attractor}
-				<button type="button" on:click={() => ($isPaused = !$isPaused)}>
+				<button type="button" in:fade on:click={() => ($isPaused = !$isPaused)}>
 					{#if $isPaused}
 						<Play size={controlsSize} />
 						<span class="sr-only">Pause</span>
@@ -287,7 +287,7 @@
 		@apply ring-offset-blue-300 focus-visible:ring;
 		@apply focus-visible:ring-blue-400 focus-visible:ring-offset-1;
 		@apply flex-1 items-center justify-center;
-		@apply px-2.5 text-sm leading-none text-blue-700;
+		@apply px-2.5 text-base leading-none text-blue-700;
 	}
 
 	.close {
