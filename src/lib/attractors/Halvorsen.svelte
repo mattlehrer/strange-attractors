@@ -31,7 +31,12 @@
 	$: colors = trailColors({ trailLength, rgb, dt });
 
 	useFrame(() => {
-		if (isPaused) return;
+		if (isPaused) {
+			const tempColors = colors.slice(0, trailPositions.length * 3);
+			geometry.setAttribute('color', new Float32BufferAttribute(tempColors, 3));
+
+			return;
+		}
 		const dx = (-a * x - 4 * y - 4 * z - y ** 2) * dt;
 		const dy = (-a * y - 4 * z - 4 * x - z ** 2) * dt;
 		const dz = (-a * z - 4 * x - 4 * y - x ** 2) * dt;
