@@ -4,7 +4,7 @@
 
 html,
 body {
-	min-height: 100vh;
+	min-height: 100dvh;
 }
 
 body {
@@ -88,6 +88,12 @@ main {
 	min-height: 100%;
 	display: flex;
 	flex-direction: column;
+}
+
+@media screen and (min-width: 450px) {
+	main {
+		padding: 0 calc(var(--header-spacer) * 3);
+	}
 }
 
 p {
