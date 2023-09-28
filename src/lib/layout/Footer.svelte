@@ -37,7 +37,7 @@
 
 		@media screen and (min-width: 451px) {
 			width: 100%;
-			margin: auto auto 3rem auto;
+			margin: auto auto 0 auto;
 		}
 	}
 
