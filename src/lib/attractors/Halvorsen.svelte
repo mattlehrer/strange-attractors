@@ -2,6 +2,7 @@
 	import { T, useFrame } from '@threlte/core';
 	import { BufferGeometry, Float32BufferAttribute, PointsMaterial } from 'three';
 	import { hexToRgb, trailColors } from '$lib/utils';
+	import { prefersReducedMotion } from '$lib/state';
 
 	export let isPaused = false;
 	export let color = '#fff';
@@ -28,7 +29,7 @@
 
 	let trailPositions: Array<number> = [];
 	let colors: Array<number> = [];
-	$: colors = trailColors({ trailLength, rgb, dt });
+	$: colors = trailColors({ trailLength, rgb, dt, prefersReducedMotion: $prefersReducedMotion });
 
 	useFrame(() => {
 		if (isPaused) {

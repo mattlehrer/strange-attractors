@@ -57,3 +57,5 @@ export const positions = writable<
 		},
 	],
 });
+
+export const prefersReducedMotion = writable<boolean>(false);
