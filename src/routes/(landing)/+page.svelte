@@ -59,7 +59,7 @@
 	summary {
 		padding: 1rem;
 		display: block;
-		padding-left: 2rem;
+		padding-left: 1.5rem;
 		position: relative;
 		cursor: pointer;
 	}
@@ -71,7 +71,7 @@
 		border-color: transparent transparent transparent var(--light-color);
 		position: absolute;
 		top: 1.3rem;
-		left: 0.75rem;
+		left: 0.3rem;
 		transform: rotate(0);
 		transform-origin: 0.2rem 50%;
 		transition: 0.25s transform ease;
