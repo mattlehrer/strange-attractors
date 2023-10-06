@@ -12,6 +12,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 
 	--dark-color: oklch(21% 0.03 265);
+	--darkish-color: oklch(37.88% 0.03 265);
 	--light-color: oklch(85% 0.03 265);
 	--accent-color: oklch(95% 0.03 265);
 	--canvas-side: min(300px, 80vw);
@@ -22,8 +23,18 @@ body {
 	color: var(--light-color);
 	background-color: var(--dark-color);
 
-	overflow-y: auto;
+	overflow-y: scroll;
 	scrollbar-gutter: stable both-edges;
+}
+
+body::-webkit-scrollbar {
+	width: 0.75em;
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: var(--darkish-color);
+	outline-color: var(--light-color);
+	@apply rounded-full outline;
 }
 
 *,
