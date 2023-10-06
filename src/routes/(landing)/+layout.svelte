@@ -15,7 +15,7 @@
 	div {
 		min-height: 100vh;
 		display: grid;
-		grid-template-rows: auto 1fr auto;
+		grid-template-rows: auto minmax(0, 100%) auto;
 		max-width: 1200px;
 		margin: 0 auto;
 	}
