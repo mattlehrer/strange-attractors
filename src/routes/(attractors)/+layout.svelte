@@ -17,7 +17,7 @@
 	import { uid } from 'uid';
 
 	$: innerWidth = 0;
-	$: controlsSize = Math.min(Math.max(innerWidth / 20, 36), 50);
+	$: controlsSize = Math.min(Math.max(innerWidth / 30, 36), 50);
 
 	let attractor: System;
 	$: attractor = $page.route.id?.slice('/(attractors)/'.length) as System;
@@ -86,7 +86,12 @@
 	{#if innerWidth > 0}
 		<div class="flex controls gap-6 mt-1">
 			{#if attractor}
-				<button type="button" in:fade on:click={() => ($isPaused = !$isPaused)}>
+				<button
+					class="p-1 sm:p-0 -mt-1 -mr-1 sm:m-0"
+					type="button"
+					in:fade
+					on:click={() => ($isPaused = !$isPaused)}
+				>
 					{#if $isPaused}
 						<Play size={controlsSize} />
 						<span class="sr-only">Pause</span>
@@ -134,7 +139,7 @@
 					>
 						<span class="thumb block rounded-full bg-white transition" />
 					</button>
-					<input use:melt={$input} />
+					<input id="autorotate" use:melt={$input} />
 				</div>
 				<div class="h-px w-full bg-[var(--dark-color)]" use:melt={$horizontal} />
 			</div>
@@ -260,7 +265,7 @@
 	}
 
 	.header {
-		top: 0;
+		top: 0.5rem;
 	}
 
 	.footer {
