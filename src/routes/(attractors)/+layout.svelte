@@ -248,7 +248,7 @@
 <style lang="postcss">
 	.wrapper {
 		position: relative;
-		width: 99vw;
+		width: 97vw;
 		height: 100dvh;
 	}
 
