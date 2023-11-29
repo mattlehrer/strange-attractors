@@ -47,7 +47,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@melt-ui/svelte": "^0.50.0",
+		"@melt-ui/svelte": "^0.63.0",
 		"lucide-svelte": "^0.294.0",
 		"uid": "^2.0.2"
 	}
