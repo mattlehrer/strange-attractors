@@ -1,4 +1,4 @@
-export type System = 'Lorenz' | 'Sprott' | 'Halvorsen' | 'Thomas';
+export type System = 'Lorenz' | 'Sprott' | 'Halvorsen' | 'Thomas' | 'Dadras';
 
 export const settings: Record<
 	System,
@@ -59,6 +59,18 @@ export const settings: Record<
 		trailLength: 500,
 		speed: 100,
 		zoom: 2,
+		offsetX: -5,
+		offsetY: 2,
+		initScale: 1,
+	},
+	Dadras: {
+		near: 0.01,
+		fov: 10,
+		position: [150, 150, 150],
+		target: [1, -1, -1],
+		trailLength: 500,
+		speed: 100,
+		zoom: 1,
 		offsetX: -5,
 		offsetY: 2,
 		initScale: 1,

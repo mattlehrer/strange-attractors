@@ -40,6 +40,7 @@
 		<Card type={'Sprott'} />
 		<Card type={'Halvorsen'} />
 		<Card type={'Thomas'} />
+		<Card type={'Dadras'} />
 	</div>
 </main>
 

@@ -5,6 +5,7 @@
 	import Sprott from '$lib/attractors/Sprott.svelte';
 	import Halvorsen from '$lib/attractors/Halvorsen.svelte';
 	import Thomas from '$lib/attractors/Thomas.svelte';
+	import Dadras from '$lib/attractors/Dadras.svelte';
 	import { writable } from 'svelte/store';
 	import { settings, type System } from '$lib/attractors/settings';
 
@@ -59,6 +60,12 @@
 		/>
 	{:else if type === 'Thomas'}
 		<Thomas
+			color={dot.dotColor}
+			trailLength={settings[type].trailLength}
+			speed={settings[type].speed}
+		/>
+	{:else if type === 'Dadras'}
+		<Dadras
 			color={dot.dotColor}
 			trailLength={settings[type].trailLength}
 			speed={settings[type].speed}

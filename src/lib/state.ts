@@ -68,6 +68,18 @@ export const positions = writable<
 			id: uid(),
 		},
 	],
+	Dadras: [
+		{
+			count: 1,
+			dotColor: '#fff5f5',
+			x: 1.1,
+			y: 2.1,
+			z: -2.0,
+			speed: 100,
+			trailLength: 1000,
+			id: uid(),
+		},
+	],
 });
 
 export const prefersReducedMotion = writable<boolean>(false);
