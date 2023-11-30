@@ -1,4 +1,4 @@
-export type System = 'Lorenz' | 'Sprott' | 'Halvorsen';
+export type System = 'Lorenz' | 'Sprott' | 'Halvorsen' | 'Thomas';
 
 export const settings: Record<
 	System,
@@ -49,6 +49,18 @@ export const settings: Record<
 		zoom: 1,
 		offsetX: -10,
 		offsetY: 0,
+		initScale: 1,
+	},
+	Thomas: {
+		near: 0.01,
+		fov: 4,
+		position: [150, 150, 150],
+		target: [1.3, 1.3, 1.3],
+		trailLength: 500,
+		speed: 100,
+		zoom: 2,
+		offsetX: -5,
+		offsetY: 2,
 		initScale: 1,
 	},
 };
